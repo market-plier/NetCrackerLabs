@@ -22,6 +22,9 @@ public class AbstractDevice implements Device {
         if (in>0) {
         this.in=in;
         }
+        else {
+            System.err.println("Значение in не может быть меньше или равным 0");
+        }
     }
 
     @Override
