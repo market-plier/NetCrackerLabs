@@ -1,6 +1,6 @@
 package com.netcracker.edu.inventory.service;
 
-import com.netcracker.edu.inventory.model.Device;
+import com.netcracker.edu.inventory.model.*;
 
 /**The interface Service describe list of services of Inventory component
  *
