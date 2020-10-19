@@ -19,8 +19,8 @@ public abstract class AbstractDevice implements Device {
 
     @Override
     public void setIn(int in) {
-        if (in>0) {
-        this.in=in;
+        if (this.in==0 && in>0) {
+            this.in=in;
         }
     }
 

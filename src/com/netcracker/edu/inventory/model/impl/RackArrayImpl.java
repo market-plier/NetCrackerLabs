@@ -33,7 +33,7 @@ public class RackArrayImpl implements Rack {
 
     @Override
     public Device getDevAtSlot(int index) {
-        if (index > 0 && index < size) {
+        if (index >= 0 && index < size) {
 
             return devices[index];
         } else {
@@ -46,12 +46,18 @@ public class RackArrayImpl implements Rack {
     public boolean insertDevToSlot(Device device, int index) {
 
         if(getDevAtSlot(index)==null){
-            if (device.getIn() > 0) {
-                devices[index] = device;
-                freeSize -= 1;
-                return true;
-            } else {
-                System.err.println("Can't insert device object with incorrect IN (<0) or IN by default (0)");
+            if(device!=null){
+                if (device.getIn() > 0) {
+                    devices[index] = device;
+                    freeSize -= 1;
+                    return true;
+                } else {
+                    System.err.println("Can't insert device object with incorrect IN (<0) or IN by default (0)");
+                    return false;
+                }
+            }
+            else {
+                System.err.println("Device is null");
                 return false;
             }
         } else {
@@ -64,14 +70,14 @@ public class RackArrayImpl implements Rack {
     @Override
     public Device removeDevFromSlot(int index) {
 
-            if (getDevAtSlot(index) != null) {
-                Device temp = devices[index];
-                devices[index] = null;
-                return temp;
-            } else {
-                System.err.println("Device is null");
-                return null;
-            }
+        if (getDevAtSlot(index) != null) {
+            Device temp = devices[index];
+            devices[index] = null;
+            return temp;
+        } else {
+            System.err.println("Device is null");
+            return null;
+        }
     }
 
     @Override
