@@ -1,6 +1,6 @@
 package com.netcracker.edu.inventory.model.impl;
 
-public class Switch {
+public class Switch extends AbstractDevice {
     protected int numberOfPorts;
 
     public void setNumberOfPorts(int numberOfPorts) {

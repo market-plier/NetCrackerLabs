@@ -4,7 +4,7 @@ import com.netcracker.edu.inventory.model.Device;
 
 import java.util.Date;
 
-public class AbstractDevice implements Device {
+public abstract class AbstractDevice implements Device {
 
     protected int in;
     protected String type;

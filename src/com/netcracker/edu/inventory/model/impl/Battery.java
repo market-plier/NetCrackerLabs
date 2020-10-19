@@ -1,8 +1,6 @@
 package com.netcracker.edu.inventory.model.impl;
 
-import com.netcracker.edu.inventory.model.Device;
-
-public class Battery extends AbstractDevice implements Device {
+public class Battery extends AbstractDevice {
     protected int chargeVolume;
 
     public int getChargeVolume() {
