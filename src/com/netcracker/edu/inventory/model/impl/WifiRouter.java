@@ -1,6 +1,6 @@
 package com.netcracker.edu.inventory.model.impl;
 
-public class WifiRouter extends AbstractDevice {
+public class WifiRouter extends Router {
     protected String securityProtocol;
 
     public void setSecurityProtocol(String securityProtocol) {
