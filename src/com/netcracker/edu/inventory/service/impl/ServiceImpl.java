@@ -25,7 +25,7 @@ public class ServiceImpl implements Service {
                     nulls++;
                 }
                 if (devices[i].getIn()==0){
-                    var temp = devices[i];
+                    Device temp = devices[i];
                     devices[i]=devices[size-nulls];
                     devices[size-nulls]=temp;
                     nulls++;
