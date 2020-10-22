@@ -33,19 +33,22 @@ public class RackArrayImpl implements Rack {
 
     @Override
     public Device getDevAtSlot(int index) {
-        if (index >= 0 && index < size) {
-
+        if (indexIsValid(index)) {
             return devices[index];
         } else {
-            System.err.println("Такого слота нет в списке");
             return null;
         }
     }
-
+    private boolean indexIsValid (int index){
+        if (index<0 || index>=size) {
+            System.err.println("Index is out of range");
+            return false;
+        }
+        return true;
+    }
     @Override
     public boolean insertDevToSlot(Device device, int index) {
-
-        if(getDevAtSlot(index)==null){
+        if(getDevAtSlot(index)==null && indexIsValid(index)){
             if(device!=null){
                 if (device.getIn() > 0) {
                     devices[index] = device;
