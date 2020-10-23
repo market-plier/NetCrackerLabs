@@ -65,23 +65,26 @@ public class RackArrayImpl implements Rack {
 
     @Override
     public boolean insertDevToSlot(Device device, int index) {
-        if(getDevAtSlot(index)==null){
-            if(device!=null){
+
+        if(device!=null){
+            if(getDevAtSlot(index)==null){
                 if (device.getIn() > 0) {
                     devices[index] = device;
                     freeSize -= 1;
                     return true;
                 }
-
+                DeviceValidationException ex = new DeviceValidationException("Rack.insertDevToSlot ",device);
+                logger.log(Level.SEVERE, ("Problem with Device"), ex);
+                throw ex;
             }
-            DeviceValidationException ex = new DeviceValidationException("Rack.insertDevToSlot ",device);
-            logger.log(Level.SEVERE, ("Problem with Device"), ex);
-            throw ex;
-        } else {
-
+            logger.log(Level.WARNING, ("Can't insert in full"));
             return false;
         }
-    }
+        else {
+            DeviceValidationException ex = new DeviceValidationException("Rack.insertDevToSlot ",device);
+            logger.log(Level.SEVERE, ("Problem with Device"), ex);
+            throw ex;}
+        }
 
     @Override
     public Device removeDevFromSlot(int index) {

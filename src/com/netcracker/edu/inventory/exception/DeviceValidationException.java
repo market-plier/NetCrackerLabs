@@ -7,17 +7,17 @@ public class DeviceValidationException extends RuntimeException{
         super();
     }
     public DeviceValidationException(String operation) {
-        super(operation !=null ? operation + " " + defaultMessage : defaultMessage);
+        super((operation != null) ? (defaultMessage +" "+ operation) : defaultMessage);
     }
 
     public DeviceValidationException(String operation, Device device) {
-        super(operation);
+        this(operation);
         this.device = device;
     }
 
-    public final static String defaultMessage="Device is not valid for this operation";
+    public final static String defaultMessage="Device is not valid for operation";
 
-    protected Device device;
+    private Device device;
 
     public Device getDevice() {
         return device;
