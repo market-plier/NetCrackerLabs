@@ -16,13 +16,23 @@ public class RackArrayImpl implements Rack {
     private int freeSize;
     private Logger logger=Logger.getLogger(RackArrayImpl.class.getName());
     public RackArrayImpl(int size) {
+        try {
+            FileInputStream fis = new FileInputStream("./src/logging.properties");
+            LogManager.getLogManager().readConfiguration(fis);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         if (size > 0) {
             devices = new Device[size];
         } else {
-            throw new IllegalArgumentException("Size of rack can not be 0 or less");
+            IllegalArgumentException ex=new IllegalArgumentException("Size of rack can not be 0 or less");
+            logger.log(Level.SEVERE,"Wrong size", ex);
+            throw ex;
         }
         this.size = size;
         freeSize = size;
+
     }
 
 
@@ -38,7 +48,9 @@ public class RackArrayImpl implements Rack {
 
     private boolean indexIsValid (int index){
         if (index<0 || index>=size) {
-            throw new IndexOutOfBoundsException("Index "+index+" is invalid. Valid index is from 0 to "+(size-1));
+            IndexOutOfBoundsException ex=new IndexOutOfBoundsException("Index "+index+" is invalid. Valid index is from 0 to "+(size-1));
+            logger.log(Level.SEVERE,"Index "+index+" is invalid."+(size-1),ex);
+            throw ex;
         }
         return true;
     }
@@ -62,9 +74,11 @@ public class RackArrayImpl implements Rack {
                 }
 
             }
-            throw new DeviceValidationException("Rack.insertDevToSlot ",device);
+            DeviceValidationException ex = new DeviceValidationException("Rack.insertDevToSlot ",device);
+            logger.log(Level.SEVERE, ("Problem with Device"), ex);
+            throw ex;
         } else {
-            //System.err.println("Can't insert to full slot");
+
             return false;
         }
     }
@@ -77,13 +91,7 @@ public class RackArrayImpl implements Rack {
             devices[index] = null;
             return temp;
         } else {
-            try {
-                FileInputStream fis = new FileInputStream("./src/logging.properties");
-                LogManager.getLogManager().readConfiguration(fis);
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             logger.log(Level.WARNING,"Can not remove from empty slot <"+index+">");
             return null;
         }

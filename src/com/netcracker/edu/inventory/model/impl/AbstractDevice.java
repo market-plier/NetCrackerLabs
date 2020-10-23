@@ -24,18 +24,20 @@ public abstract class AbstractDevice implements Device {
 
     @Override
     public void setIn(int in) {
+        try {
+            FileInputStream fis = new FileInputStream("./src/logging.properties");
+            LogManager.getLogManager().readConfiguration(fis);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         if (this.in == 0 && in > 0) {
             this.in = in;
         } else if (in < 0) {
-            throw new IllegalArgumentException("IN can not be negative");
+            IllegalArgumentException ex =new IllegalArgumentException("IN can not be negative");
+            logger.log(Level.SEVERE, "Wrong IN", ex);
+            throw ex;
         } else if (this.in != 0) {
-            try {
-                FileInputStream fis = new FileInputStream("./src/logging.properties");
-                LogManager.getLogManager().readConfiguration(fis);
-                logger.log(Level.WARNING,"Inventory number can not be reset");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            logger.log(Level.WARNING,"Inventory number can not be reset");
         }
     }
     @Override
