@@ -16,18 +16,11 @@ public class RackArrayImpl implements Rack {
     private int freeSize;
     private Logger logger=Logger.getLogger(RackArrayImpl.class.getName());
     public RackArrayImpl(int size) {
-        try {
-            FileInputStream fis = new FileInputStream("./src/logging.properties");
-            LogManager.getLogManager().readConfiguration(fis);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         if (size > 0) {
             devices = new Device[size];
         } else {
             IllegalArgumentException ex=new IllegalArgumentException("Size of rack can not be 0 or less");
-            logger.log(Level.SEVERE,"Wrong size", ex);
+            logger.log(Level.SEVERE,ex.getMessage(), ex);
             throw ex;
         }
         this.size = size;
@@ -49,7 +42,7 @@ public class RackArrayImpl implements Rack {
     private boolean indexIsValid (int index){
         if (index<0 || index>=size) {
             IndexOutOfBoundsException ex=new IndexOutOfBoundsException("Index "+index+" is invalid. Valid index is from 0 to "+(size-1));
-            logger.log(Level.SEVERE,"Index "+index+" is invalid."+(size-1),ex);
+            logger.log(Level.SEVERE,ex.getMessage(),ex);
             throw ex;
         }
         return true;
@@ -74,7 +67,7 @@ public class RackArrayImpl implements Rack {
                     return true;
                 }
                 DeviceValidationException ex = new DeviceValidationException("Rack.insertDevToSlot ",device);
-                logger.log(Level.SEVERE, ("Problem with Device"), ex);
+                logger.log(Level.SEVERE, ex.getMessage(), ex);
                 throw ex;
             }
             logger.log(Level.WARNING, ("Can't insert in full"));
@@ -82,7 +75,7 @@ public class RackArrayImpl implements Rack {
         }
         else {
             DeviceValidationException ex = new DeviceValidationException("Rack.insertDevToSlot ",device);
-            logger.log(Level.SEVERE, ("Problem with Device"), ex);
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
             throw ex;}
         }
 
