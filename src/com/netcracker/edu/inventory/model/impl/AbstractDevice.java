@@ -16,7 +16,8 @@ public abstract class AbstractDevice implements Device {
     protected String manufacturer;
     protected String model;
     protected Date productionDate;
-    protected static Logger logger=Logger.getLogger(AbstractDevice.class.getName());
+    protected static Logger logger = Logger.getLogger(AbstractDevice.class.getName());
+
     @Override
     public int getIn() {
         return in;
@@ -27,13 +28,14 @@ public abstract class AbstractDevice implements Device {
         if (this.in == 0 && in > 0) {
             this.in = in;
         } else if (in < 0) {
-            IllegalArgumentException ex =new IllegalArgumentException("IN can not be negative");
+            IllegalArgumentException ex = new IllegalArgumentException("IN can not be negative");
             logger.log(Level.SEVERE, ex.getMessage(), ex);
             throw ex;
         } else if (this.in != 0) {
-            logger.log(Level.WARNING,"Inventory number can not be reset");
+            logger.log(Level.WARNING, "Inventory number can not be reset");
         }
     }
+
     @Override
     public String getType() {
         return type;
@@ -41,7 +43,7 @@ public abstract class AbstractDevice implements Device {
 
     @Override
     public void setType(String type) {
-    this.type=type;
+        this.type = type;
     }
 
     @Override
@@ -51,7 +53,7 @@ public abstract class AbstractDevice implements Device {
 
     @Override
     public void setManufacturer(String manufacturer) {
-    this.manufacturer=manufacturer;
+        this.manufacturer = manufacturer;
     }
 
     @Override
@@ -61,7 +63,7 @@ public abstract class AbstractDevice implements Device {
 
     @Override
     public void setModel(String model) {
-    this.model=model;
+        this.model = model;
     }
 
     @Override
@@ -71,6 +73,6 @@ public abstract class AbstractDevice implements Device {
 
     @Override
     public void setProductionDate(Date productionDate) {
-    this.productionDate=productionDate;
+        this.productionDate = productionDate;
     }
 }
