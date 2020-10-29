@@ -3,6 +3,8 @@ package com.netcracker.edu.inventory.model.impl;
 import com.netcracker.edu.inventory.exception.DeviceValidationException;
 import com.netcracker.edu.inventory.model.Device;
 import com.netcracker.edu.inventory.model.Rack;
+import com.netcracker.edu.inventory.service.Service;
+import com.netcracker.edu.inventory.service.impl.ServiceImpl;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -74,8 +76,8 @@ public class RackArrayImpl implements Rack {
 
     @Override
     public boolean insertDevToSlot(Device device, int index) {
-
-        if(device!=null){
+        ServiceImpl service=new ServiceImpl();
+        if (service.isValidDeviceForInsertToRack(device)){
             if(!typeOfDevices.isAssignableFrom(device.getClass())){
                 IllegalArgumentException ex = new IllegalArgumentException("тип передаваемого объекта не совместим с типом, который может\n" +
                         "хранить стойка");
@@ -83,23 +85,18 @@ public class RackArrayImpl implements Rack {
                 throw ex;
             }
             if(getDevAtSlot(index)==null){
-                if (device.getIn() > 0) {
                     devices[index] = device;
                     freeSize -= 1;
                     return true;
-                }
-                DeviceValidationException ex = new DeviceValidationException("Rack.insertDevToSlot ",device);
-                logger.log(Level.SEVERE, ex.getMessage(), ex);
-                throw ex;
             }
-            logger.log(Level.WARNING, ("Can't insert in full"));
-            return false;
+            else {
+                logger.log(Level.WARNING, ("Can't insert in full"));
+                return false;
+            }
         }
-        else {
-            DeviceValidationException ex = new DeviceValidationException("Rack.insertDevToSlot ",device);
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
-            throw ex;
-        }
+        DeviceValidationException ex = new DeviceValidationException("Rack.insertDevToSlot ",device);
+        logger.log(Level.SEVERE, ex.getMessage(), ex);
+        throw ex;
     }
 
     @Override
