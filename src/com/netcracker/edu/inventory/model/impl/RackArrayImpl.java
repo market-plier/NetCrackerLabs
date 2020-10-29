@@ -11,11 +11,24 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 public class RackArrayImpl implements Rack {
+    private final Class typeOfDevices;
     private final Device[] devices;
     private final int size;
     private int freeSize;
     private Logger logger=Logger.getLogger(RackArrayImpl.class.getName());
     public RackArrayImpl(int size) {
+        this(size,Device.class);
+    }
+
+    public RackArrayImpl(int size,Class clazz) {
+        if (clazz != null && Device.class.isAssignableFrom(clazz)){
+            typeOfDevices=clazz;
+        }
+        else{
+            IllegalArgumentException ex =new IllegalArgumentException("не может быть null или не Device");
+            logger.log(Level.SEVERE,ex.getMessage(), ex);
+            throw ex;
+        }
         if (size > 0) {
             devices = new Device[size];
         } else {
@@ -25,9 +38,7 @@ public class RackArrayImpl implements Rack {
         }
         this.size = size;
         freeSize = size;
-
     }
-
 
     @Override
     public int getSize() {
@@ -37,6 +48,11 @@ public class RackArrayImpl implements Rack {
     @Override
     public int getFreeSize() {
         return freeSize;
+    }
+
+    @Override
+    public Class getTypeOfDevices() {
+        return typeOfDevices;
     }
 
     private boolean indexIsValid (int index){
@@ -60,6 +76,12 @@ public class RackArrayImpl implements Rack {
     public boolean insertDevToSlot(Device device, int index) {
 
         if(device!=null){
+            if(!typeOfDevices.isAssignableFrom(device.getClass())){
+                IllegalArgumentException ex = new IllegalArgumentException("тип передаваемого объекта не совместим с типом, который может\n" +
+                        "хранить стойка");
+                logger.log(Level.SEVERE,ex.getMessage(), ex);
+                throw ex;
+            }
             if(getDevAtSlot(index)==null){
                 if (device.getIn() > 0) {
                     devices[index] = device;
@@ -76,12 +98,12 @@ public class RackArrayImpl implements Rack {
         else {
             DeviceValidationException ex = new DeviceValidationException("Rack.insertDevToSlot ",device);
             logger.log(Level.SEVERE, ex.getMessage(), ex);
-            throw ex;}
+            throw ex;
         }
+    }
 
     @Override
     public Device removeDevFromSlot(int index) {
-
         if (getDevAtSlot(index) != null) {
             Device temp = devices[index];
             devices[index] = null;
@@ -104,5 +126,17 @@ public class RackArrayImpl implements Rack {
             }
         }
         return null;
+    }
+
+    @Override
+    public Device[] getAllDeviceAsArray() {
+        Device[] temp = new Device[size-freeSize];
+        for (int i =0,j=0;i<size&&j<(size-freeSize);i++){
+            if (devices[i]!=null){
+                temp[j]=devices[i];
+                j++;
+            }
+        }
+        return temp;
     }
 }
