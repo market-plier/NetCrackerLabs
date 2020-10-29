@@ -6,6 +6,7 @@ import com.netcracker.edu.inventory.service.Service;
 import java.util.Collections;
 
 public class ServiceImpl implements Service {
+
     private int sortNulls(Device[] devices){
             int nulls = 0;
             int size = devices.length - 1;
