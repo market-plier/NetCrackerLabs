@@ -3,13 +3,9 @@ package com.netcracker.edu.inventory.model.impl;
 import com.netcracker.edu.inventory.exception.DeviceValidationException;
 import com.netcracker.edu.inventory.model.Device;
 import com.netcracker.edu.inventory.model.Rack;
-import com.netcracker.edu.inventory.service.Service;
 import com.netcracker.edu.inventory.service.impl.ServiceImpl;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 public class RackArrayImpl implements Rack {

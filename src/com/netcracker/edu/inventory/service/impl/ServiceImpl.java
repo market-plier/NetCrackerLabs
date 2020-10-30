@@ -12,14 +12,14 @@ public class ServiceImpl implements Service {
     @Override
     public void sortByIN(Device[] devices) {
         if (devices != null) {
-            Arrays.sort(devices, DeviceComparator.DeviceInComparator);
+            Arrays.sort(devices, new DeviceInComparator());
         }
     }
 
     @Override
     public void sortByProductionDate(Device[] devices) {
         if (devices != null) {
-            Arrays.sort(devices, DeviceComparator.DeviceDateComparator);
+            Arrays.sort(devices, new DeviceDateComparator());
         }
     }
 
