@@ -1,9 +1,12 @@
 package com.netcracker.edu.inventory.service.impl;
 
+import com.netcracker.edu.inventory.exception.DeviceValidationException;
 import com.netcracker.edu.inventory.model.Device;
 import com.netcracker.edu.inventory.model.FillableEntity;
 import com.netcracker.edu.inventory.model.impl.*;
 import com.netcracker.edu.inventory.service.DeviceService;
+import com.netcracker.edu.io.IOService;
+import com.netcracker.edu.io.impl.IOServiceImpl;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,6 +18,7 @@ import java.util.logging.Logger;
 class DeviceServiceImpl implements DeviceService {
 
     private final Logger logger = Logger.getLogger(RackArrayImpl.class.getName());
+    private IOService service = new IOServiceImpl();
 
     @Override
     public <T extends Device> T createDeviceInstance(Class<T> clazz) {
@@ -117,16 +121,21 @@ class DeviceServiceImpl implements DeviceService {
 
     @Override
     public boolean isValidDeviceForOutputToStream(Device device) {
-        return false;
+        return service.isValidEntityForOutputToStream(device);
     }
 
     @Override
     public void outputDevice(Device device, OutputStream outputStream) throws IOException {
-
+        if (!isValidDeviceForOutputToStream(device)){
+            DeviceValidationException exception=new DeviceValidationException("DeviceService.outputDevice");
+            logger.log(Level.SEVERE,exception.getMessage(),exception);
+            throw exception;
+        }
+    service.outputFillableEntity(device,outputStream);
     }
 
     @Override
     public Device inputDevice(InputStream inputStream) throws IOException, ClassNotFoundException {
-        return null;
+        return (Device)service.inputFillableEntity(inputStream);
     }
 }
