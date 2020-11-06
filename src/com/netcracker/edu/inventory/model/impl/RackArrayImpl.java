@@ -4,13 +4,16 @@ import com.netcracker.edu.inventory.exception.DeviceValidationException;
 import com.netcracker.edu.inventory.model.Device;
 import com.netcracker.edu.inventory.model.Rack;
 import com.netcracker.edu.inventory.service.impl.ServiceImpl;
+import com.netcracker.edu.location.Location;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class RackArrayImpl implements Rack {
+public class RackArrayImpl<D extends Device> implements Rack<D> {
+    private Location location;
     private final Class typeOfDevices;
-    private final Device[] devices;
+    private final D[] devices;
     private final int size;
     private int freeSize;
     private final Logger logger = Logger.getLogger(RackArrayImpl.class.getName());
@@ -28,7 +31,7 @@ public class RackArrayImpl implements Rack {
             throw ex;
         }
         if (size > 0) {
-            devices = new Device[size];
+            devices = (D[]) new Device[size];
         } else {
             IllegalArgumentException ex = new IllegalArgumentException("Size of rack can not be 0 or less");
             logger.log(Level.SEVERE, ex.getMessage(), ex);
@@ -36,6 +39,16 @@ public class RackArrayImpl implements Rack {
         }
         this.size = size;
         freeSize = size;
+    }
+
+    @Override
+    public Location getLocation() {
+        return location;
+    }
+
+    @Override
+    public void setLocation(Location location) {
+        this.location=location;
     }
 
     @Override
@@ -63,7 +76,7 @@ public class RackArrayImpl implements Rack {
     }
 
     @Override
-    public Device getDevAtSlot(int index) {
+    public D getDevAtSlot(int index) {
         if (indexIsValid(index)) {
             return devices[index];
         } else {
@@ -72,7 +85,7 @@ public class RackArrayImpl implements Rack {
     }
 
     @Override
-    public boolean insertDevToSlot(Device device, int index) {
+    public boolean insertDevToSlot(D device, int index) {
         ServiceImpl service = new ServiceImpl();
         if (service.isValidDeviceForInsertToRack(device)) {
             if (!typeOfDevices.isAssignableFrom(device.getClass())) {
@@ -96,9 +109,9 @@ public class RackArrayImpl implements Rack {
     }
 
     @Override
-    public Device removeDevFromSlot(int index) {
+    public D removeDevFromSlot(int index) {
         if (getDevAtSlot(index) != null) {
-            Device temp = devices[index];
+            D temp = devices[index];
             devices[index] = null;
             return temp;
         } else {
@@ -109,7 +122,7 @@ public class RackArrayImpl implements Rack {
     }
 
     @Override
-    public Device getDevByIN(int in) {
+    public D getDevByIN(int in) {
         if (in > 0) {
             for (int i = 0; i < size; i++) {
                 if (getDevAtSlot(i) == null) continue;
@@ -122,8 +135,8 @@ public class RackArrayImpl implements Rack {
     }
 
     @Override
-    public Device[] getAllDeviceAsArray() {
-        Device[] temp = new Device[size - freeSize];
+    public D[] getAllDeviceAsArray() {
+        D[] temp = (D[]) new Device[size - freeSize];
         for (int i = 0, j = 0; i < size && j < (size - freeSize); i++) {
             if (devices[i] != null) {
                 temp[j] = devices[i];

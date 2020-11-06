@@ -20,6 +20,7 @@ public class ServiceImpl implements Service {
     public void sortByProductionDate(Device[] devices) {
         if (devices != null) {
             Arrays.sort(devices, new DeviceDateComparator());
+
         }
     }
 
