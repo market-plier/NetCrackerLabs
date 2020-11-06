@@ -6,7 +6,6 @@ import com.netcracker.edu.inventory.model.Rack;
 import com.netcracker.edu.inventory.service.impl.ServiceImpl;
 import com.netcracker.edu.location.Location;
 
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

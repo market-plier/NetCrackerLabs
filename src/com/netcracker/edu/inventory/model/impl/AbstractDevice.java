@@ -5,6 +5,9 @@ import com.netcracker.edu.inventory.model.Device;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.NoSuchElementException;
+import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
@@ -21,6 +24,32 @@ public abstract class AbstractDevice implements Device {
     @Override
     public int getIn() {
         return in;
+    }
+
+    @Override
+    public void fillAllFields(Queue<Field> fields){
+        try {
+        setIn((int)fields.remove().getValue());
+        setManufacturer((String)fields.remove().getValue());
+        setModel((String)fields.remove().getValue());
+        setProductionDate((Date)fields.remove().getValue());
+        setType((String)fields.remove().getValue());
+        }
+        catch (NoSuchElementException exception){
+            logger.log(Level.SEVERE,exception.getMessage(),exception);
+            throw exception;
+        }
+    }
+
+    @Override
+    public Queue<Field> getAllFields() {
+        Queue<Field> fields= new LinkedList<>();
+        fields.add(new Field(int.class,getIn()));
+        fields.add(new Field(String.class,getManufacturer()));
+        fields.add(new Field(String.class,getModel()));
+        fields.add(new Field(Date.class,getProductionDate()));
+        fields.add(new Field(String.class,getType()));
+        return fields;
     }
 
     @Override
