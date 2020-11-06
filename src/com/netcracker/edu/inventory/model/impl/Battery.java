@@ -19,7 +19,7 @@ public class Battery extends AbstractDevice {
     public void fillAllFields(Queue<Field> fields){
         try {
             super.fillAllFields(fields);
-            setChargeVolume((int) fields.remove().getValue());
+            setChargeVolume((Integer) fields.remove().getValue());
         }
         catch (NoSuchElementException exception){
             logger.log(Level.SEVERE,exception.getMessage(),exception);
@@ -30,7 +30,7 @@ public class Battery extends AbstractDevice {
     @Override
     public Queue<Field> getAllFields() {
         Queue<Field> fields=super.getAllFields();
-        fields.add(new Field(int.class,getChargeVolume()));
+        fields.add(new Field(Integer.class,getChargeVolume()));
         return fields;
     }
 }

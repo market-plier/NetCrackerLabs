@@ -136,6 +136,6 @@ class DeviceServiceImpl implements DeviceService {
 
     @Override
     public Device inputDevice(InputStream inputStream) throws IOException, ClassNotFoundException {
-        return (Device)service.inputFillableEntity(inputStream);
+        return (Device) service.inputFillableEntity(inputStream);
     }
 }

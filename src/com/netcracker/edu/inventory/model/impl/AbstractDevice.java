@@ -29,7 +29,7 @@ public abstract class AbstractDevice implements Device {
     @Override
     public void fillAllFields(Queue<Field> fields){
         try {
-        setIn((int)fields.remove().getValue());
+        setIn((Integer) fields.remove().getValue());
         setManufacturer((String)fields.remove().getValue());
         setModel((String)fields.remove().getValue());
         setProductionDate((Date)fields.remove().getValue());
@@ -44,7 +44,7 @@ public abstract class AbstractDevice implements Device {
     @Override
     public Queue<Field> getAllFields() {
         Queue<Field> fields= new LinkedList<>();
-        fields.add(new Field(int.class,getIn()));
+        fields.add(new Field(Integer.class,getIn()));
         fields.add(new Field(String.class,getManufacturer()));
         fields.add(new Field(String.class,getModel()));
         fields.add(new Field(Date.class,getProductionDate()));

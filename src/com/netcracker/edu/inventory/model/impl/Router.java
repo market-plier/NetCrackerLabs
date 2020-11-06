@@ -19,7 +19,7 @@ public class Router extends AbstractDevice {
     public void fillAllFields(Queue<Field> fields){
     try {
         super.fillAllFields(fields);
-        setDataRate((int)fields.remove().getValue());
+        setDataRate((Integer)fields.remove().getValue());
     }
     catch (NoSuchElementException exception){
         logger.log(Level.SEVERE,exception.getMessage(),exception);
@@ -30,7 +30,7 @@ public class Router extends AbstractDevice {
     @Override
     public Queue<Field> getAllFields() {
         Queue<Field> fields=super.getAllFields();
-        fields.add(new Field(int.class,getDataRate()));
+        fields.add(new Field(Integer.class,getDataRate()));
         return fields;
     }
 }

@@ -19,7 +19,7 @@ public class Switch extends Router {
     public void fillAllFields(Queue<Field> fields){
         try{
             super.fillAllFields(fields);
-            setNumberOfPorts((int)fields.remove().getValue());
+            setNumberOfPorts((Integer)fields.remove().getValue());
         }
         catch (NoSuchElementException exception){
             logger.log(Level.SEVERE,exception.getMessage(),exception);
@@ -30,7 +30,7 @@ public class Switch extends Router {
     @Override
     public Queue<Field> getAllFields() {
         Queue<Field> fields=super.getAllFields();
-        fields.add(new Field(int.class,getNumberOfPorts()));
+        fields.add(new Field(Integer.class,getNumberOfPorts()));
         return fields;
     }
 }
