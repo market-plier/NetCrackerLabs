@@ -1,17 +1,45 @@
 package com.netcracker.edu.inventory.service.impl;
 
 import com.netcracker.edu.inventory.model.Device;
+import com.netcracker.edu.inventory.model.FillableEntity;
+import com.netcracker.edu.inventory.model.impl.*;
 import com.netcracker.edu.inventory.service.DeviceService;
-import com.netcracker.edu.inventory.service.RackService;
-import com.netcracker.edu.inventory.service.Service;
 
-import java.lang.reflect.Array;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class ServiceImpl implements Service {
+class DeviceServiceImpl implements DeviceService {
 
-    @Deprecated
+    private final Logger logger = Logger.getLogger(RackArrayImpl.class.getName());
+
+    @Override
+    public <T extends Device> T createDeviceInstance(Class<T> clazz) {
+
+        if (clazz!=null && Device.class.isAssignableFrom(clazz)) {
+            if (clazz.isAssignableFrom(Battery.class)) {
+                return (T) new Battery();
+            }
+            if (clazz.isAssignableFrom(Router.class)) {
+                return (T) new Router();
+            }
+
+            if (WifiRouter.class.isAssignableFrom(clazz)) {
+                return (T) new WifiRouter();
+            }
+
+            if (Switch.class.isAssignableFrom(clazz)) {
+                return (T) new Switch();
+            }
+        }
+        IllegalArgumentException exception = new IllegalArgumentException("Переданный аргумент не относится к семейству device");
+        logger.log(Level.SEVERE,exception.getMessage(),exception);
+        throw exception;
+    }
+
     @Override
     public void sortByIN(Device[] devices) {
         if (devices != null) {
@@ -19,15 +47,14 @@ public class ServiceImpl implements Service {
         }
     }
 
-    @Deprecated
     @Override
     public void sortByProductionDate(Device[] devices) {
         if (devices != null) {
             Arrays.sort(devices, new DeviceDateComparator());
+
         }
     }
 
-    @Deprecated
     @Override
     public void filtrateByType(Device[] devices, String type) {
         if (devices != null) {
@@ -45,7 +72,6 @@ public class ServiceImpl implements Service {
         }
     }
 
-    @Deprecated
     @Override
     public void filtrateByManufacturer(Device[] devices, String manufacturer) {
         if (devices != null) {
@@ -64,7 +90,6 @@ public class ServiceImpl implements Service {
         }
     }
 
-    @Deprecated
     @Override
     public void filtrateByModel(Device[] devices, String model) {
         if (devices != null) {
@@ -82,7 +107,6 @@ public class ServiceImpl implements Service {
         }
     }
 
-    @Deprecated
     @Override
     public boolean isValidDeviceForInsertToRack(Device device) {
         if (device == null) {
@@ -92,12 +116,17 @@ public class ServiceImpl implements Service {
     }
 
     @Override
-    public DeviceService getDeviceService() {
-        return new DeviceServiceImpl();
+    public boolean isValidDeviceForOutputToStream(Device device) {
+        return false;
     }
 
     @Override
-    public RackService getRackService() {
-        return new RackServiceImpl();
+    public void outputDevice(Device device, OutputStream outputStream) throws IOException {
+
+    }
+
+    @Override
+    public Device inputDevice(InputStream inputStream) throws IOException, ClassNotFoundException {
+        return null;
     }
 }

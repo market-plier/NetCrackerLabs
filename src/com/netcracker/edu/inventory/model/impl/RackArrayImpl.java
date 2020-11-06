@@ -86,7 +86,7 @@ public class RackArrayImpl<D extends Device> implements Rack<D> {
     @Override
     public boolean insertDevToSlot(D device, int index) {
         ServiceImpl service = new ServiceImpl();
-        if (service.isValidDeviceForInsertToRack(device)) {
+        if (service.getDeviceService().isValidDeviceForInsertToRack(device)) {
             if (!typeOfDevices.isAssignableFrom(device.getClass())) {
                 IllegalArgumentException ex = new IllegalArgumentException("тип передаваемого объекта не совместим с типом, который может\n" +
                         "хранить стойка");
