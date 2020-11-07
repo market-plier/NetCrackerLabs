@@ -10,21 +10,22 @@ import com.netcracker.edu.io.impl.IOServiceImpl;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 class DeviceServiceImpl implements DeviceService {
 
     private final Logger logger = Logger.getLogger(RackArrayImpl.class.getName());
-    private IOService ioService = new IOServiceImpl();
-    private DeviceArrayService arrayService = new DeviceArrayService();
-    private DeviceCreateService createService = new DeviceCreateService();
+    private final IOService ioService = new IOServiceImpl();
+    private final DeviceSortService sortService = new DeviceSortService();
+    private final DeviceCreateService createService = new DeviceCreateService();
+    private final DeviceFiltrateService filtrateService = new DeviceFiltrateService();
 
     @Override
     public <T extends Device> T createDeviceInstance(Class<T> clazz) {
-        if (clazz!=null && Device.class.isAssignableFrom(clazz)) {
-            return createService.CreateDevice(clazz);
+        T device = createService.CreateDevice(clazz);
+        if (device != null) {
+            return device;
         }
         IllegalArgumentException exception = new IllegalArgumentException("Переданный аргумент не относится к семейству device");
         logger.log(Level.SEVERE,exception.getMessage(),exception);
@@ -33,27 +34,27 @@ class DeviceServiceImpl implements DeviceService {
 
     @Override
     public void sortByIN(Device[] devices) {
-        arrayService.sortByIN(devices);
+        sortService.sortByIN(devices);
     }
 
     @Override
     public void sortByProductionDate(Device[] devices) {
-        arrayService.sortByProductionDate(devices);
+        sortService.sortByProductionDate(devices);
     }
 
     @Override
     public void filtrateByType(Device[] devices, String type) {
-        arrayService.filtrateByType(devices, type);
+        filtrateService.filtrateByType(devices, type);
     }
 
     @Override
     public void filtrateByManufacturer(Device[] devices, String manufacturer) {
-       arrayService.filtrateByManufacturer(devices,manufacturer);
+       filtrateService.filtrateByManufacturer(devices,manufacturer);
     }
 
     @Override
     public void filtrateByModel(Device[] devices, String model) {
-       arrayService.filtrateByModel(devices,model);
+       filtrateService.filtrateByModel(devices,model);
     }
 
     @Override

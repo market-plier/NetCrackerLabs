@@ -8,19 +8,21 @@ import com.netcracker.edu.inventory.model.impl.WifiRouter;
 
 class DeviceCreateService {
     public <T extends Device> T CreateDevice(Class<T> clazz) {
-        if (clazz.isAssignableFrom(Battery.class)) {
-            return (T) new Battery();
-        }
-        if (clazz.isAssignableFrom(Router.class)) {
-            return (T) new Router();
-        }
+        if (clazz!=null && Device.class.isAssignableFrom(clazz)){
+            if (clazz.isAssignableFrom(Battery.class)) {
+                return (T) new Battery();
+            }
+            if (clazz.isAssignableFrom(Router.class)) {
+                return (T) new Router();
+            }
 
-        if (WifiRouter.class.isAssignableFrom(clazz)) {
-            return (T) new WifiRouter();
-        }
+            if (WifiRouter.class.isAssignableFrom(clazz)) {
+                return (T) new WifiRouter();
+            }
 
-        if (Switch.class.isAssignableFrom(clazz)) {
-            return (T) new Switch();
+            if (Switch.class.isAssignableFrom(clazz)) {
+                return (T) new Switch();
+            }
         }
         return null;
     }
