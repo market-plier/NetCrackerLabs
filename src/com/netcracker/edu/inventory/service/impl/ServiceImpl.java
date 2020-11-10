@@ -11,6 +11,8 @@ import java.util.Collections;
 
 public class ServiceImpl implements Service {
 
+    private DeviceService deviceService=new DeviceServiceImpl();
+    private RackService rackService = new RackServiceImpl();
     @Deprecated
     @Override
     public void sortByIN(Device[] devices) {
@@ -49,11 +51,11 @@ public class ServiceImpl implements Service {
 
     @Override
     public DeviceService getDeviceService() {
-        return new DeviceServiceImpl();
+        return deviceService;
     }
 
     @Override
     public RackService getRackService() {
-        return new RackServiceImpl();
+        return rackService;
     }
 }
