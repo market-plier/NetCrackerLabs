@@ -12,7 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-abstract class AbstractDevice implements Device {
+public abstract class AbstractDevice implements Device  {
 
     protected int in;
     protected String type;
@@ -20,6 +20,23 @@ abstract class AbstractDevice implements Device {
     protected String model;
     protected Date productionDate;
     protected static Logger logger = Logger.getLogger(AbstractDevice.class.getName());
+
+    public int compareTo(Device device)
+    {
+        if (device == null) {
+            return -1;
+        }
+        if (getIn() == device.getIn()) {
+            return 0;
+        }
+        if (getIn() == 0) {
+            return 1;
+        }
+        if (device.getIn() == 0) {
+            return -1;
+        }
+        return getIn() - device.getIn();
+    }
 
     @Override
     public int getIn() {
