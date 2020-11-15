@@ -8,6 +8,7 @@ import com.netcracker.edu.location.Trunk;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.logging.Level;
 
 public class OpticFiber<A extends Device,B extends Device>  extends AbstractOneToOneConnection<A,B> {
 
@@ -47,9 +48,16 @@ public class OpticFiber<A extends Device,B extends Device>  extends AbstractOneT
 
     @Override
     public void fillAllFields(Queue<Field> fields) {
-        setLength((Integer)fields.remove().getValue());
-        if (getMode() == Mode.need_init)
-            setMode((Mode)fields.remove().getValue());
+        try {
+            setLength((Integer) fields.remove().getValue());
+            fields.remove();
+            if (getMode() == Mode.need_init)
+                setMode((Mode) fields.peek().getValue());
+        }
+        catch (IndexOutOfBoundsException e){
+            logger.log(Level.SEVERE,e.getMessage(),e);
+            throw e;
+        }
     }
 
     @Override

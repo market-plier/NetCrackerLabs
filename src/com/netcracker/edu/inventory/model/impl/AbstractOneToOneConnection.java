@@ -18,7 +18,7 @@ abstract class AbstractOneToOneConnection<A extends Device,B extends Device> imp
     protected int serialNumber;
     protected ConnectorType aPointConnectorType = ConnectorType.need_init;
     protected ConnectorType bPointConnectorType = ConnectorType.need_init;
-    protected static Logger logger = Logger.getLogger(AbstractOneToOneConnection.class.getName());
+    protected Logger logger = Logger.getLogger(AbstractOneToOneConnection.class.getName());
     protected A aPoint;
     protected B bPoint;
 

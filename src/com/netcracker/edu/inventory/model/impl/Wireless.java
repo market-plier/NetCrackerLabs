@@ -6,7 +6,10 @@ import com.netcracker.edu.inventory.model.Device;
 import java.awt.*;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 import java.util.Queue;
+import java.util.logging.Level;
+
 
 public class Wireless<A extends Device,B extends Device> extends AbstractOneToManyConnection<A,B> {
 
@@ -47,10 +50,17 @@ public class Wireless<A extends Device,B extends Device> extends AbstractOneToMa
 
     @Override
     public void fillAllFields(Queue<Field> fields) {
-        setProtocol((String) fields.remove().getValue());
-        setVersion((Integer) fields.remove().getValue());
-        if (getTechnology() == null)
-            setTechnology((String)fields.remove().getValue());
+        try {
+            setProtocol((String) fields.remove().getValue());
+            setVersion((Integer) fields.remove().getValue());
+            fields.remove();
+            if (getTechnology() == null)
+                setTechnology((String) fields.peek().getValue());
+        }
+        catch (NoSuchElementException exception){
+            logger.log(Level.SEVERE,exception.getMessage(),exception);
+            throw exception;
+        }
     }
 
     @Override

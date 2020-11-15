@@ -46,9 +46,16 @@ public class TwistedPair<A extends Device,B extends Device> extends AbstractOneT
 
     @Override
     public void fillAllFields(Queue<Field> fields) {
-        setLength((Integer)fields.remove().getValue());
-        if (getType() == Type.need_init)
-            setType((Type)fields.remove().getValue());
+        try {
+            setLength((Integer) fields.remove().getValue());
+            fields.remove();
+            if (getType() == Type.need_init)
+                setType((Type) fields.peek().getValue());
+        }
+        catch (IndexOutOfBoundsException e){
+            logger.log(Level.SEVERE,e.getMessage(),e);
+            throw e;
+        }
     }
 
     @Override

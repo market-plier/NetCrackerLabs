@@ -10,6 +10,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
+import java.util.logging.Logger;
 
 abstract class AbstractOneToManyConnection<A extends Device,B extends Device> implements OneToManyConnection<A,B> {
 
@@ -21,6 +22,7 @@ abstract class AbstractOneToManyConnection<A extends Device,B extends Device> im
     protected A aPoint;
     protected List<B> bPoints;
     protected int bCapacity;
+    protected Logger logger = Logger.getLogger(AbstractOneToManyConnection.class.getName());
 
     protected void setAPointConnectorType(ConnectorType connectorType){
         aPointConnectorType = connectorType;

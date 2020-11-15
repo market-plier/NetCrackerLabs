@@ -6,8 +6,12 @@ import com.netcracker.edu.inventory.model.ConnectorType;
 import com.netcracker.edu.inventory.model.Device;
 import com.netcracker.edu.location.Trunk;
 
+import java.util.LinkedList;
+import java.util.NoSuchElementException;
 import java.util.Queue;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ThinCoaxial<T extends Device> implements AllToAllConnection<T> {
 
@@ -17,6 +21,7 @@ public class ThinCoaxial<T extends Device> implements AllToAllConnection<T> {
     private Trunk trunk;
     private String status;
     private int serialNumber;
+    protected Logger logger = Logger.getLogger(ThinCoaxial.class.getName());
 
     public ThinCoaxial() {
         setConnectorType(ConnectorType.TConnector);
@@ -95,12 +100,26 @@ public class ThinCoaxial<T extends Device> implements AllToAllConnection<T> {
 
     @Override
     public void fillAllFields(Queue<Field> fields) {
-
+        try{
+        setConnectorType((ConnectorType)fields.remove().getValue());
+        setSerialNumber((Integer)fields.remove().getValue());
+        setStatus((String)fields.remove().getValue());
+        setTrunk((Trunk)fields.remove().getValue());
+        }
+        catch (NoSuchElementException exception){
+            logger.log(Level.SEVERE,exception.getMessage(),exception);
+            throw exception;
+        }
     }
 
     @Override
     public Queue<Field> getAllFields() {
-        return null;
+        Queue<Field> fields = new LinkedList<>();
+        fields.add(new Field(ConnectorType.class,getConnectorType()));
+        fields.add(new Field(Integer.class,getSerialNumber()));
+        fields.add(new Field(String.class,getStatus()));
+        fields.add(new Field(Trunk.class,getTrunk()));
+        return fields;
     }
 
     @Override
