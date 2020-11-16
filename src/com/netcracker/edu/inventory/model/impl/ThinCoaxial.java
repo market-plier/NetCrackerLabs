@@ -6,10 +6,7 @@ import com.netcracker.edu.inventory.model.ConnectorType;
 import com.netcracker.edu.inventory.model.Device;
 import com.netcracker.edu.location.Trunk;
 
-import java.util.LinkedList;
-import java.util.NoSuchElementException;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,16 +16,19 @@ public class ThinCoaxial<T extends Device> implements AllToAllConnection<T> {
     private Set<T> allDevices;
     private int maxSize;
     private Trunk trunk;
-    private String status;
+    private String status=PLANED;
     private int serialNumber;
     protected Logger logger = Logger.getLogger(ThinCoaxial.class.getName());
 
     public ThinCoaxial() {
         setConnectorType(ConnectorType.TConnector);
+        allDevices=new HashSet<>();
     }
 
     public ThinCoaxial(int maxSize){
+        this();
         this.maxSize = maxSize;
+        allDevices=new HashSet<>(maxSize);
     }
     private void setConnectorType(ConnectorType connectorType){
         this.connectorType = connectorType;
@@ -58,6 +58,10 @@ public class ThinCoaxial<T extends Device> implements AllToAllConnection<T> {
         return allDevices;
     }
 
+    private void setAllDevices(Set<T> allDevices) {
+        this.allDevices = allDevices;
+    }
+
     @Override
     public int getCurSize() {
         return allDevices.size();
@@ -66,6 +70,10 @@ public class ThinCoaxial<T extends Device> implements AllToAllConnection<T> {
     @Override
     public int getMaxSize() {
         return maxSize;
+    }
+
+    private void setMaxSize(int maxSize) {
+        this.maxSize = maxSize;
     }
 
     @Override
@@ -101,10 +109,12 @@ public class ThinCoaxial<T extends Device> implements AllToAllConnection<T> {
     @Override
     public void fillAllFields(Queue<Field> fields) {
         try{
-        setConnectorType((ConnectorType)fields.remove().getValue());
+        setConnectorType(ConnectorType.valueOf((String)fields.remove().getValue()));
         setSerialNumber((Integer)fields.remove().getValue());
         setStatus((String)fields.remove().getValue());
         setTrunk((Trunk)fields.remove().getValue());
+        setAllDevices(new HashSet<>(Arrays.asList((T[])fields.remove().getValue())));
+        setMaxSize((Integer)fields.remove().getValue());
         }
         catch (NoSuchElementException exception){
             logger.log(Level.SEVERE,exception.getMessage(),exception);
@@ -115,10 +125,14 @@ public class ThinCoaxial<T extends Device> implements AllToAllConnection<T> {
     @Override
     public Queue<Field> getAllFields() {
         Queue<Field> fields = new LinkedList<>();
-        fields.add(new Field(ConnectorType.class,getConnectorType()));
+        fields.add(new Field(String.class,getConnectorType().toString()));
         fields.add(new Field(Integer.class,getSerialNumber()));
         fields.add(new Field(String.class,getStatus()));
         fields.add(new Field(Trunk.class,getTrunk()));
+        Device[] devices = new Device[getCurSize()];
+        devices = getAllDevices().toArray(devices);
+        fields.add(new Field(Device[].class,devices));
+        fields.add(new Field(Integer.class,getMaxSize()));
         return fields;
     }
 

@@ -11,6 +11,12 @@ import java.io.OutputStream;
 
 public class RackServiceImpl implements RackService {
     IOService service= new IOServiceImpl();
+    private static RackService rackService;
+    public static RackService getRackService(){
+        if (rackService==null)
+            rackService=new RackServiceImpl();
+        return rackService;
+    }
     @Override
     public boolean isValidRackForOutputToStream(Rack rack) {
         return service.isValidRackForOutputToStream(rack);

@@ -1,17 +1,12 @@
 package com.netcracker.edu.inventory.model.impl;
 
-import com.netcracker.edu.inventory.model.Connection;
 import com.netcracker.edu.inventory.model.ConnectorType;
 import com.netcracker.edu.inventory.model.Device;
-import com.netcracker.edu.inventory.model.OneToOneConnection;
-import com.netcracker.edu.location.Trunk;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 import java.util.Queue;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class TwistedPair<A extends Device,B extends Device> extends AbstractOneToOneConnection<A,B> {
 
@@ -33,26 +28,24 @@ public class TwistedPair<A extends Device,B extends Device> extends AbstractOneT
         }
     }
     public TwistedPair(){
-        setLength(0);
-        setType(Type.need_init);
-        setAPointConnectorType(ConnectorType.RJ45);
-        setBPointConnectorType(ConnectorType.RJ45);
+        this(Type.need_init,0);
     }
 
     public TwistedPair(Type type, int length){
         setType(type);
         setLength(length);
+        setAPointConnectorType(ConnectorType.RJ45);
+        setBPointConnectorType(ConnectorType.RJ45);
     }
 
     @Override
     public void fillAllFields(Queue<Field> fields) {
         try {
+            super.fillAllFields(fields);
             setLength((Integer) fields.remove().getValue());
-            fields.remove();
-            if (getType() == Type.need_init)
-                setType((Type) fields.peek().getValue());
+            setType(Type.valueOf((String) fields.remove().getValue()));
         }
-        catch (IndexOutOfBoundsException e){
+        catch (NoSuchElementException e){
             logger.log(Level.SEVERE,e.getMessage(),e);
             throw e;
         }
@@ -60,9 +53,9 @@ public class TwistedPair<A extends Device,B extends Device> extends AbstractOneT
 
     @Override
     public Queue<Field> getAllFields() {
-        Queue<Field> fields = new LinkedList<>();
+        Queue<Field> fields = super.getAllFields();
         fields.add(new Field(Integer.class,getLength()));
-        fields.add(new Field(Type.class,getType()));
+        fields.add(new Field(String.class,getType().toString()));
         return fields;
     }
 

@@ -19,6 +19,11 @@ public class WifiRouter extends Router {
         setWirePortType(ConnectorType.need_init);
     }
 
+    public WifiRouter(String technologyVersion,ConnectorType connectorType){
+        setTechnologyVersion(technologyVersion);
+        setWirePortType(connectorType);
+    }
+
     public Connection getWireConnection() {
         return wireConnection;
     }
@@ -64,12 +69,8 @@ public class WifiRouter extends Router {
         try{
             super.fillAllFields(fields);
             setSecurityProtocol((String)fields.remove().getValue());
-            fields.remove();
-            if (getTechnologyVersion()==null)
-            setTechnologyVersion((String)fields.peek().getValue());
-            fields.remove();
-            if (getWirePortType()==ConnectorType.need_init)
-            setWirePortType((ConnectorType)fields.peek().getValue());
+            setTechnologyVersion((String)fields.remove().getValue());
+            setWirePortType(ConnectorType.valueOf((String)fields.remove().getValue()));
             setWirelessConnection((Connection)fields.remove().getValue());
             setWireConnection((Connection)fields.remove().getValue());
         }
@@ -84,7 +85,7 @@ public class WifiRouter extends Router {
         Queue<Field> fields=super.getAllFields();
         fields.add(new Field(String.class,getSecurityProtocol()));
         fields.add(new Field(String.class,getTechnologyVersion()));
-        fields.add(new Field(ConnectorType.class,getWirePortType()));
+        fields.add(new Field(String.class,getWirePortType().toString()));
         fields.add(new Field(Connection.class,getWirelessConnection()));
         fields.add(new Field(Connection.class,getWireConnection()));
         return fields;

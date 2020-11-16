@@ -2,9 +2,7 @@ package com.netcracker.edu.inventory.service;
 
 import com.netcracker.edu.inventory.model.Device;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 
 /**The interface DeviceService describe list of services of Inventory component, witch working with Device
  *
@@ -17,7 +15,9 @@ public interface DeviceService {
      *
      * @param clazz - class of Device
      * @return - instance of Device
+     * @see com.netcracker.edu.inventory.service.Service
      */
+    @Deprecated
     <T extends Device> T createDeviceInstance(Class<T> clazz);
 
     /**

@@ -2,14 +2,11 @@ package com.netcracker.edu.inventory.model.impl;
 
 import com.netcracker.edu.inventory.model.Device;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.Queue;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 public abstract class AbstractDevice implements Device  {

@@ -1,6 +1,7 @@
 package com.netcracker.edu.inventory.service;
 
 import com.netcracker.edu.inventory.model.Device;
+import com.netcracker.edu.inventory.model.NetworkElement;
 
 /**The interface Service describe list of services of Inventory component
  *
@@ -87,10 +88,25 @@ public interface Service {
     DeviceService getDeviceService();
 
     /**
+     * Return ConnectionService implementation
+     *
+     * @return implementation of ConnectionService interface
+     */
+    ConnectionService getConnectionService();
+
+    /**
      * Return RackService implementation
      *
      * @return implementation of RackService interface
      */
     RackService getRackService();
+
+    /**
+     * create new instance of NetworkElement by class
+     *
+     * @param clazz - class of NetworkElement
+     * @return - instance of NetworkElement
+     */
+    <T extends NetworkElement> T createNEInstance(Class<T> clazz);
 
 }

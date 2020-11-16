@@ -2,8 +2,8 @@ package com.netcracker.edu.inventory.service.impl;
 
 import com.netcracker.edu.inventory.exception.DeviceValidationException;
 import com.netcracker.edu.inventory.model.Device;
-import com.netcracker.edu.inventory.model.impl.*;
 import com.netcracker.edu.inventory.service.DeviceService;
+import com.netcracker.edu.inventory.service.Service;
 import com.netcracker.edu.io.IOService;
 import com.netcracker.edu.io.impl.IOServiceImpl;
 
@@ -15,15 +15,26 @@ import java.util.logging.Logger;
 
 class DeviceServiceImpl implements DeviceService {
 
-    private final Logger logger = Logger.getLogger(RackArrayImpl.class.getName());
+    private static DeviceService deviceService=null;
+    private final Logger logger = Logger.getLogger(DeviceServiceImpl.class.getName());
     private final IOService ioService = new IOServiceImpl();
     private final DeviceSortService sortService = new DeviceSortService();
     private final DeviceCreateService createService = new DeviceCreateService();
     private final DeviceFiltrateService filtrateService = new DeviceFiltrateService();
 
+    public static DeviceService getDeviceService(){
+
+        if (deviceService==null)
+        {
+            deviceService=new DeviceServiceImpl();
+        }
+        return deviceService;
+    }
+    @Deprecated
     @Override
     public <T extends Device> T createDeviceInstance(Class<T> clazz) {
-        T device = createService.CreateDevice(clazz);
+        Service service = new ServiceImpl();
+        T device = service.createNEInstance(clazz);
         if (device != null) {
             return device;
         }
@@ -71,7 +82,7 @@ class DeviceServiceImpl implements DeviceService {
     public void outputDevice(Device device, OutputStream outputStream) throws IOException {
         if (!isValidDeviceForOutputToStream(device)){
             DeviceValidationException exception=new DeviceValidationException("DeviceService.outputDevice");
-            logger.log(Level.SEVERE,exception.getMessage(),exception);
+           // logger.log(Level.SEVERE,exception.getMessage(),exception);
             throw exception;
         }
     ioService.outputFillableEntity(device,outputStream);

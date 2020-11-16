@@ -1,12 +1,10 @@
 package com.netcracker.edu.inventory.model.impl;
 
-import com.netcracker.edu.inventory.model.Connection;
 import com.netcracker.edu.inventory.model.ConnectorType;
 import com.netcracker.edu.inventory.model.Device;
-import com.netcracker.edu.inventory.model.OneToOneConnection;
-import com.netcracker.edu.location.Trunk;
 
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 import java.util.Queue;
 import java.util.logging.Level;
 
@@ -29,6 +27,7 @@ public class OpticFiber<A extends Device,B extends Device>  extends AbstractOneT
     }
 
     public OpticFiber(Mode mode,int length){
+        this();
         setMode(mode);
         setLength(length);
     }
@@ -49,12 +48,11 @@ public class OpticFiber<A extends Device,B extends Device>  extends AbstractOneT
     @Override
     public void fillAllFields(Queue<Field> fields) {
         try {
+            super.fillAllFields(fields);
             setLength((Integer) fields.remove().getValue());
-            fields.remove();
-            if (getMode() == Mode.need_init)
-                setMode((Mode) fields.peek().getValue());
+            setMode(Mode.valueOf((String)fields.remove().getValue()));
         }
-        catch (IndexOutOfBoundsException e){
+        catch (NoSuchElementException e){
             logger.log(Level.SEVERE,e.getMessage(),e);
             throw e;
         }
@@ -62,9 +60,9 @@ public class OpticFiber<A extends Device,B extends Device>  extends AbstractOneT
 
     @Override
     public Queue<Field> getAllFields() {
-        Queue<Field> fields = new LinkedList<>();
+        Queue<Field> fields = super.getAllFields();
         fields.add(new Field(Integer.class,getLength()));
-        fields.add(new Field(Mode.class,getMode()));
+        fields.add(new Field(String.class,getMode().toString()));
         return fields;
     }
 }
