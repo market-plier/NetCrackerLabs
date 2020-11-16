@@ -19,7 +19,7 @@ public class TwistedPair<A extends Device,B extends Device> extends AbstractOneT
         STP("STP"),
         SFTP("S/FTP"),
         SFTP2("SFTP");
-        private String fullName;
+        private final String fullName;
         Type(String fullName) {
             this.fullName = fullName;
         }
