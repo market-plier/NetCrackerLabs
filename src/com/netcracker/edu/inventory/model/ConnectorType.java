@@ -17,7 +17,7 @@ public enum ConnectorType {
     FiberConnector_FC("Fiber-Connector(FC)"),
     FiberConnector_SC("Fiber-Connector(SC)");
 
-    private String fullName;
+    private final String fullName;
 
     ConnectorType(String fullName) {
         this.fullName = fullName;

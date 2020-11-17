@@ -69,17 +69,19 @@ public class ServiceImpl implements Service {
     @Override
     public <T extends NetworkElement> T createNEInstance(Class<T> clazz) {
         if (clazz!=null && NetworkElement.class.isAssignableFrom(clazz)){
-            if (clazz.isAssignableFrom(Battery.class)) {
-                return (T) new Battery();
-            }
-            if (clazz.isAssignableFrom(Router.class)) {
-                return (T) new Router();
-            }
-            if (WifiRouter.class.isAssignableFrom(clazz)) {
-                return (T) new WifiRouter();
-            }
-            if (Switch.class.isAssignableFrom(clazz)) {
-                return (T) new Switch();
+            if (Device.class.isAssignableFrom(clazz)){
+                if (clazz.isAssignableFrom(Battery.class)) {
+                    return (T) new Battery();
+                }
+                if (clazz.isAssignableFrom(Router.class)) {
+                    return (T) new Router();
+                }
+                if (WifiRouter.class.isAssignableFrom(clazz)) {
+                    return (T) new WifiRouter();
+                }
+                if (Switch.class.isAssignableFrom(clazz)) {
+                    return (T) new Switch();
+                }
             }
             if (OpticFiber.class.isAssignableFrom(clazz)){
                 return (T) new OpticFiber<>();

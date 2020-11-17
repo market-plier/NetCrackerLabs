@@ -1,6 +1,5 @@
 package com.netcracker.edu.inventory.model.impl;
 
-import com.netcracker.edu.inventory.model.Connection;
 import com.netcracker.edu.inventory.model.ConnectorType;
 import com.netcracker.edu.inventory.model.Device;
 
@@ -12,7 +11,7 @@ public class Wireless<A extends Device,B extends Device> extends AbstractOneToMa
 
     private String technology;
     private String protocol;
-    private int version;
+    private int version=0;
 
     public Wireless(){
         setAPointConnectorType(ConnectorType.Wireless);
@@ -30,6 +29,7 @@ public class Wireless<A extends Device,B extends Device> extends AbstractOneToMa
     }
 
     private void setTechnology(String technology){
+        if (this.technology==null)
         this.technology=technology;
     }
 

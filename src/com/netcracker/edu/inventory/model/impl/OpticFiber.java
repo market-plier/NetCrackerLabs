@@ -3,15 +3,14 @@ package com.netcracker.edu.inventory.model.impl;
 import com.netcracker.edu.inventory.model.ConnectorType;
 import com.netcracker.edu.inventory.model.Device;
 
-import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.Queue;
 import java.util.logging.Level;
 
 public class OpticFiber<A extends Device,B extends Device>  extends AbstractOneToOneConnection<A,B> {
 
-    private Mode mode;
-    private int length;
+    private Mode mode=Mode.need_init;
+    private int length=0;
     public enum Mode{
         need_init,
         single,
@@ -19,11 +18,8 @@ public class OpticFiber<A extends Device,B extends Device>  extends AbstractOneT
     }
 
     public OpticFiber() {
-        setMode(Mode.need_init);
-        setLength(0);
         setAPointConnectorType(ConnectorType.FiberConnector_FC);
         setBPointConnectorType(ConnectorType.FiberConnector_FC);
-
     }
 
     public OpticFiber(Mode mode,int length){
@@ -39,6 +35,7 @@ public class OpticFiber<A extends Device,B extends Device>  extends AbstractOneT
         return length;
     }
     private void setMode(Mode mode){
+        if (this.mode==Mode.need_init)
         this.mode = mode;
     }
     public Mode getMode(){

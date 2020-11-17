@@ -3,7 +3,6 @@ package com.netcracker.edu.inventory.model.impl;
 import com.netcracker.edu.inventory.model.ConnectorType;
 import com.netcracker.edu.inventory.model.Device;
 
-import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.Queue;
 import java.util.logging.Level;
@@ -32,7 +31,7 @@ public class TwistedPair<A extends Device,B extends Device> extends AbstractOneT
     }
 
     public TwistedPair(Type type, int length){
-        setType(type);
+        this.type=type;
         setLength(length);
         setAPointConnectorType(ConnectorType.RJ45);
         setBPointConnectorType(ConnectorType.RJ45);
@@ -60,6 +59,7 @@ public class TwistedPair<A extends Device,B extends Device> extends AbstractOneT
     }
 
     protected void setType(Type type){
+        if (this.getType()==Type.need_init)
         this.type = type;
     }
 

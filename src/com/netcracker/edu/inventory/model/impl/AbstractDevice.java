@@ -32,7 +32,7 @@ public abstract class AbstractDevice implements Device  {
         if (device.getIn() == 0) {
             return -1;
         }
-        return getIn() - device.getIn();
+        return Integer.compare(getIn(),device.getIn());
     }
 
     @Override
