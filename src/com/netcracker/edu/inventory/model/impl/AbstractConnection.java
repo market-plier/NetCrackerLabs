@@ -15,8 +15,8 @@ abstract class AbstractConnection<A extends Device, B extends Device> implements
     protected Logger logger = Logger.getLogger(AbstractConnection.class.getName());
     protected Trunk trunk;
     protected int serialNumber;
-    protected ConnectorType aPointConnectorType;
-    protected ConnectorType bPointConnectorType;
+    protected ConnectorType aPointConnectorType=ConnectorType.need_init;
+    protected ConnectorType bPointConnectorType=ConnectorType.need_init;
     protected String status=PLANED;
 
     @Override
@@ -93,10 +93,12 @@ abstract class AbstractConnection<A extends Device, B extends Device> implements
     }
 
     protected void setAPointConnectorType(ConnectorType type){
+        if (getAPointConnectorType()==ConnectorType.need_init)
         aPointConnectorType=type;
     }
 
     protected void setBPointConnectorType(ConnectorType type){
+        if(getBPointConnectorType()==ConnectorType.need_init)
         bPointConnectorType=type;
     }
 }

@@ -20,18 +20,6 @@ public abstract class AbstractDevice implements Device  {
 
     public int compareTo(Device device)
     {
-        if (device == null) {
-            return -1;
-        }
-        if (getIn() == device.getIn()) {
-            return 0;
-        }
-        if (getIn() == 0) {
-            return 1;
-        }
-        if (device.getIn() == 0) {
-            return -1;
-        }
         return Integer.compare(getIn(),device.getIn());
     }
 

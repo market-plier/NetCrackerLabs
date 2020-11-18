@@ -1,5 +1,6 @@
 package com.netcracker.edu.inventory.service.impl;
 
+import com.netcracker.edu.inventory.model.Connection;
 import com.netcracker.edu.inventory.model.Device;
 import com.netcracker.edu.inventory.model.NetworkElement;
 import com.netcracker.edu.inventory.model.impl.*;
@@ -83,17 +84,19 @@ public class ServiceImpl implements Service {
                     return (T) new Switch();
                 }
             }
-            if (OpticFiber.class.isAssignableFrom(clazz)){
-                return (T) new OpticFiber<>();
-            }
-            if (ThinCoaxial.class.isAssignableFrom(clazz)){
-                return (T) new ThinCoaxial<>();
-            }
-            if (TwistedPair.class.isAssignableFrom(clazz)){
-                return  (T) new TwistedPair<>();
-            }
-            if (Wireless.class.isAssignableFrom(clazz)){
-                return (T) new Wireless<>();
+            else if (Connection.class.isAssignableFrom(clazz)){
+                if (OpticFiber.class.isAssignableFrom(clazz)){
+                    return (T) new OpticFiber<>();
+                }
+                if (ThinCoaxial.class.isAssignableFrom(clazz)){
+                    return (T) new ThinCoaxial<>();
+                }
+                if (TwistedPair.class.isAssignableFrom(clazz)){
+                    return  (T) new TwistedPair<>();
+                }
+                if (Wireless.class.isAssignableFrom(clazz)){
+                    return (T) new Wireless<>();
+                }
             }
         }
         IllegalArgumentException exception = new IllegalArgumentException("Переданный аргумент не относится к семейству device или connection");
