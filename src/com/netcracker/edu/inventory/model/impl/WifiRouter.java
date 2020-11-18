@@ -49,6 +49,7 @@ public class WifiRouter extends Router {
     }
 
     protected void setTechnologyVersion(String technologyVersion){
+        if (getTechnologyVersion()==null)
         this.technologyVersion = technologyVersion;
     }
 
