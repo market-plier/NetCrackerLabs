@@ -1,4 +1,6 @@
-package com.netcracker.edu.inventory.model;
+package com.netcracker.edu.inventory.model.device;
+
+import com.netcracker.edu.inventory.model.NetworkElement;
 
 import java.util.Date;
 

@@ -1,6 +1,6 @@
 package com.netcracker.edu.inventory.exception;
 
-import com.netcracker.edu.inventory.model.Device;
+import com.netcracker.edu.inventory.model.device.Device;
 
 public class DeviceValidationException extends RuntimeException {
 

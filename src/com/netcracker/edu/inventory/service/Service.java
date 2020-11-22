@@ -1,6 +1,6 @@
 package com.netcracker.edu.inventory.service;
 
-import com.netcracker.edu.inventory.model.Device;
+import com.netcracker.edu.inventory.model.device.Device;
 import com.netcracker.edu.inventory.model.NetworkElement;
 
 /**The interface Service describe list of services of Inventory component
@@ -17,74 +17,7 @@ public interface Service {
      * @deprecated
      * @see DeviceService
      */
-    @Deprecated
-    void sortByIN(Device[] devices);
 
-    /**
-     * Sort array of Device-s by production date.
-     *
-     * @param devices - array of Device-s, that need to be sorted
-     *
-     * @deprecated
-     * @see DeviceService
-     */
-    @Deprecated
-    void sortByProductionDate(Device[] devices);
-
-    /**
-     * Filtrate array of Device-s by type
-     *
-     * @param devices - array of Device-s, that need to be filtrated
-     * @param type - type of Devices, that will remain in the array after filtering
-     *
-     * @deprecated
-     * @see DeviceService
-     */
-    @Deprecated
-    void filtrateByType(Device[] devices, String type);
-
-    /**
-     * Filtrate array of Device-s by manufacturer
-     *
-     * @param devices - array of Device-s, that need to be filtrated
-     * @param manufacturer - manufacturer of Devices, that will remain in the array after filtering
-     *
-     * @deprecated
-     * @see DeviceService
-     */
-    @Deprecated
-    void filtrateByManufacturer(Device[] devices, String manufacturer);
-
-    /**
-     * Filtrate array of Device-s by model
-     *
-     * @param devices - array of Device-s, that need to be filtrated
-     * @param model - model of Devices, that will remain in the array after filtering
-     *
-     * @deprecated
-     * @see DeviceService
-     */
-    @Deprecated
-    void filtrateByModel(Device[] devices, String model);
-
-    /**
-     * Method check validity of device for insert to rack
-     *
-     * @param device - validated device
-     * @return true - if device is valid
-     *         false - if device is not valid
-     *
-     * @deprecated
-     * @see DeviceService
-     */
-    @Deprecated
-    boolean isValidDeviceForInsertToRack(Device device);
-
-    /**
-     * Return DeviceService implementation
-     *
-     * @return implementation of DeviceService interface
-     */
     DeviceService getDeviceService();
 
     /**

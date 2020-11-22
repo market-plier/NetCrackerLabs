@@ -1,6 +1,6 @@
 package com.netcracker.edu.inventory.service.impl;
 
-import com.netcracker.edu.inventory.model.Device;
+import com.netcracker.edu.inventory.model.device.Device;
 
 public class DeviceFiltrateService {
     public void filtrateByType(Device[] devices, String type) {

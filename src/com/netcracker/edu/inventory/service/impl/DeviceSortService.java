@@ -1,6 +1,6 @@
 package com.netcracker.edu.inventory.service.impl;
 
-import com.netcracker.edu.inventory.model.Device;
+import com.netcracker.edu.inventory.model.device.Device;
 
 import java.util.Arrays;
 

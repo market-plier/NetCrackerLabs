@@ -1,7 +1,7 @@
-package com.netcracker.edu.inventory.model.impl;
+package com.netcracker.edu.inventory.model.connection.entity.impl;
 
-import com.netcracker.edu.inventory.model.ConnectorType;
-import com.netcracker.edu.inventory.model.Device;
+import com.netcracker.edu.inventory.model.connection.ConnectorType;
+import com.netcracker.edu.inventory.model.device.Device;
 
 import java.util.NoSuchElementException;
 import java.util.Queue;

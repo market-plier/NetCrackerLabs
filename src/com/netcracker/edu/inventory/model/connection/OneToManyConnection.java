@@ -1,4 +1,6 @@
-package com.netcracker.edu.inventory.model;
+package com.netcracker.edu.inventory.model.connection;
+
+import com.netcracker.edu.inventory.model.device.Device;
 
 /**
  * Created by makovetskyi on 10.11.16.

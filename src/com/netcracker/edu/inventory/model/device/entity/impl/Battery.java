@@ -1,4 +1,4 @@
-package com.netcracker.edu.inventory.model.impl;
+package com.netcracker.edu.inventory.model.device.entity.impl;
 
 import java.util.NoSuchElementException;
 import java.util.Queue;

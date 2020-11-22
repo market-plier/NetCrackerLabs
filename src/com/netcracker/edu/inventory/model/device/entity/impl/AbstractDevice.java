@@ -1,6 +1,6 @@
-package com.netcracker.edu.inventory.model.impl;
+package com.netcracker.edu.inventory.model.device.entity.impl;
 
-import com.netcracker.edu.inventory.model.Device;
+import com.netcracker.edu.inventory.model.device.Device;
 
 import java.util.Date;
 import java.util.LinkedList;

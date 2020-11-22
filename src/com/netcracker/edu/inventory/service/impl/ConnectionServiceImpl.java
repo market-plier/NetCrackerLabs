@@ -1,7 +1,7 @@
 package com.netcracker.edu.inventory.service.impl;
 
 import com.netcracker.edu.inventory.exception.ConnectionValidationException;
-import com.netcracker.edu.inventory.model.Connection;
+import com.netcracker.edu.inventory.model.connection.Connection;
 import com.netcracker.edu.inventory.service.ConnectionService;
 import com.netcracker.edu.io.IOService;
 import com.netcracker.edu.io.impl.IOServiceImpl;

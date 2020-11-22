@@ -1,9 +1,9 @@
-package com.netcracker.edu.inventory.model.impl;
+package com.netcracker.edu.inventory.model.connection.entity.impl;
 
-import com.netcracker.edu.inventory.model.AllToAllConnection;
-import com.netcracker.edu.inventory.model.Connection;
-import com.netcracker.edu.inventory.model.ConnectorType;
-import com.netcracker.edu.inventory.model.Device;
+import com.netcracker.edu.inventory.model.connection.AllToAllConnection;
+import com.netcracker.edu.inventory.model.connection.Connection;
+import com.netcracker.edu.inventory.model.connection.ConnectorType;
+import com.netcracker.edu.inventory.model.device.Device;
 import com.netcracker.edu.location.Trunk;
 
 import java.util.*;

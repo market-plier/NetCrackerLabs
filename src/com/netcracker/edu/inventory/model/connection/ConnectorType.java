@@ -1,4 +1,4 @@
-package com.netcracker.edu.inventory.model;
+package com.netcracker.edu.inventory.model.connection;
 
 /**
  * Created by makovetskyi on 10.11.16.

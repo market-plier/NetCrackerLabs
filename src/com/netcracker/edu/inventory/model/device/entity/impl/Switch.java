@@ -1,7 +1,7 @@
-package com.netcracker.edu.inventory.model.impl;
+package com.netcracker.edu.inventory.model.device.entity.impl;
 
-import com.netcracker.edu.inventory.model.Connection;
-import com.netcracker.edu.inventory.model.ConnectorType;
+import com.netcracker.edu.inventory.model.connection.Connection;
+import com.netcracker.edu.inventory.model.connection.ConnectorType;
 
 import java.util.*;
 import java.util.logging.Level;

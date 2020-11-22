@@ -1,6 +1,6 @@
 package com.netcracker.edu.inventory.service;
 
-import com.netcracker.edu.inventory.model.Device;
+import com.netcracker.edu.inventory.model.device.Device;
 
 import java.io.*;
 
@@ -17,14 +17,7 @@ public interface DeviceService {
      * @return - instance of Device
      * @see com.netcracker.edu.inventory.service.Service
      */
-    @Deprecated
-    <T extends Device> T createDeviceInstance(Class<T> clazz);
 
-    /**
-     * Sort array of Device-s by identification number.
-     *
-     * @param devices - array of Device-s, that need to be sorted
-     */
     void sortByIN(Device[] devices);
 
     /**

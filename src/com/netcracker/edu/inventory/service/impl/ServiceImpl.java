@@ -1,9 +1,16 @@
 package com.netcracker.edu.inventory.service.impl;
 
-import com.netcracker.edu.inventory.model.Connection;
-import com.netcracker.edu.inventory.model.Device;
+import com.netcracker.edu.inventory.model.connection.Connection;
+import com.netcracker.edu.inventory.model.connection.entity.impl.OpticFiber;
+import com.netcracker.edu.inventory.model.connection.entity.impl.ThinCoaxial;
+import com.netcracker.edu.inventory.model.connection.entity.impl.TwistedPair;
+import com.netcracker.edu.inventory.model.connection.entity.impl.Wireless;
+import com.netcracker.edu.inventory.model.device.Device;
 import com.netcracker.edu.inventory.model.NetworkElement;
-import com.netcracker.edu.inventory.model.impl.*;
+import com.netcracker.edu.inventory.model.device.entity.impl.Battery;
+import com.netcracker.edu.inventory.model.device.entity.impl.Router;
+import com.netcracker.edu.inventory.model.device.entity.impl.Switch;
+import com.netcracker.edu.inventory.model.device.entity.impl.WifiRouter;
 import com.netcracker.edu.inventory.service.ConnectionService;
 import com.netcracker.edu.inventory.service.DeviceService;
 import com.netcracker.edu.inventory.service.RackService;
@@ -15,42 +22,6 @@ import java.util.logging.Logger;
 public class ServiceImpl implements Service {
 
     private final Logger logger = Logger.getLogger(ServiceImpl.class.getName());
-
-    @Deprecated
-    @Override
-    public void sortByIN(Device[] devices) {
-        getDeviceService().sortByIN(devices);
-    }
-
-    @Deprecated
-    @Override
-    public void sortByProductionDate(Device[] devices) {
-        getDeviceService().sortByProductionDate(devices);
-    }
-
-    @Deprecated
-    @Override
-    public void filtrateByType(Device[] devices, String type) {
-        getDeviceService().filtrateByType(devices,type);
-    }
-
-    @Deprecated
-    @Override
-    public void filtrateByManufacturer(Device[] devices, String manufacturer) {
-       getDeviceService().filtrateByManufacturer(devices, manufacturer);
-    }
-
-    @Deprecated
-    @Override
-    public void filtrateByModel(Device[] devices, String model) {
-       getDeviceService().filtrateByModel(devices,model);
-    }
-
-    @Deprecated
-    @Override
-    public boolean isValidDeviceForInsertToRack(Device device) {
-        return getDeviceService().isValidDeviceForInsertToRack(device);
-    }
 
     @Override
     public DeviceService getDeviceService() {

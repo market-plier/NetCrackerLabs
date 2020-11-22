@@ -1,6 +1,6 @@
 package com.netcracker.edu.inventory.service;
 
-import com.netcracker.edu.inventory.model.Connection;
+import com.netcracker.edu.inventory.model.connection.Connection;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,7 +1,7 @@
 package com.netcracker.edu.inventory.service.impl;
 
 import com.netcracker.edu.inventory.exception.DeviceValidationException;
-import com.netcracker.edu.inventory.model.Device;
+import com.netcracker.edu.inventory.model.device.Device;
 import com.netcracker.edu.inventory.service.DeviceService;
 import com.netcracker.edu.inventory.service.Service;
 import com.netcracker.edu.io.IOService;
@@ -22,25 +22,12 @@ class DeviceServiceImpl implements DeviceService {
     private final DeviceCreateService createService = new DeviceCreateService();
     private final DeviceFiltrateService filtrateService = new DeviceFiltrateService();
 
-    public static DeviceService getDeviceService(){
+    public static DeviceService getDeviceService() {
 
-        if (deviceService==null)
-        {
-            deviceService=new DeviceServiceImpl();
+        if (deviceService == null) {
+            deviceService = new DeviceServiceImpl();
         }
         return deviceService;
-    }
-    @Deprecated
-    @Override
-    public <T extends Device> T createDeviceInstance(Class<T> clazz) {
-        Service service = new ServiceImpl();
-        T device = service.createNEInstance(clazz);
-        if (device != null) {
-            return device;
-        }
-        IllegalArgumentException exception = new IllegalArgumentException("Переданный аргумент не относится к семейству device");
-        logger.log(Level.SEVERE,exception.getMessage(),exception);
-        throw exception;
     }
 
     @Override

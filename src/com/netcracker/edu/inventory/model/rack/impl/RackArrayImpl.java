@@ -1,8 +1,8 @@
-package com.netcracker.edu.inventory.model.impl;
+package com.netcracker.edu.inventory.model.rack.impl;
 
 import com.netcracker.edu.inventory.exception.DeviceValidationException;
-import com.netcracker.edu.inventory.model.Device;
-import com.netcracker.edu.inventory.model.Rack;
+import com.netcracker.edu.inventory.model.device.Device;
+import com.netcracker.edu.inventory.model.rack.Rack;
 import com.netcracker.edu.inventory.service.impl.ServiceImpl;
 import com.netcracker.edu.location.Location;
 

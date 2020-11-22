@@ -1,5 +1,6 @@
-package com.netcracker.edu.inventory.model;
+package com.netcracker.edu.inventory.model.rack;
 
+import com.netcracker.edu.inventory.model.device.Device;
 import com.netcracker.edu.location.Location;
 
 /**

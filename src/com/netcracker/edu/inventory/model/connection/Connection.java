@@ -1,5 +1,7 @@
-package com.netcracker.edu.inventory.model;
+package com.netcracker.edu.inventory.model.connection;
 
+import com.netcracker.edu.inventory.model.NetworkElement;
+import com.netcracker.edu.inventory.model.device.Device;
 import com.netcracker.edu.location.Trunk;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.netcracker.edu.inventory.exception;
 
-import com.netcracker.edu.inventory.model.Connection;
+import com.netcracker.edu.inventory.model.connection.Connection;
 
 public class ConnectionValidationException extends RuntimeException {
     public final static String defaultMessage = "Connection is not valid for operation";
