@@ -10,7 +10,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ThinCoaxial<T extends Device> implements AllToAllConnection<T> {
+public class ThinCoaxial<T extends Device> implements com.netcracker.edu.inventory.model.connection.entity.ThinCoaxial<T> {
 
     private ConnectorType connectorType;
     private Set<T> allDevices;
@@ -93,7 +93,15 @@ public class ThinCoaxial<T extends Device> implements AllToAllConnection<T> {
 
     @Override
     public void setSerialNumber(int serialNumber) {
-    this.serialNumber = serialNumber;
+            if (this.serialNumber == 0 && serialNumber > 0) {
+            this.serialNumber = serialNumber;
+        } else if (serialNumber < 0) {
+            IllegalArgumentException ex = new IllegalArgumentException("serialNumber can not be negative");
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            throw ex;
+        } else if (this.serialNumber != 0) {
+            logger.log(Level.WARNING, "serialNumber number can not be reset");
+        }
     }
 
     @Override

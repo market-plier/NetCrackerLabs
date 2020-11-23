@@ -7,15 +7,11 @@ import java.util.NoSuchElementException;
 import java.util.Queue;
 import java.util.logging.Level;
 
-public class OpticFiber<A extends Device,B extends Device>  extends AbstractOneToOneConnection<A,B> {
+public class OpticFiber<A extends Device,B extends Device>  extends AbstractOneToOneConnection<A,B> implements com.netcracker.edu.inventory.model.connection.entity.OpticFiber<A,B> {
 
     private Mode mode=Mode.need_init;
     private int length=0;
-    public enum Mode{
-        need_init,
-        single,
-        multi
-    }
+
 
     public OpticFiber() {
         setAPointConnectorType(ConnectorType.FiberConnector_FC);

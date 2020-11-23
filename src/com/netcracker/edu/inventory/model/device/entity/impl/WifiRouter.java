@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 import java.util.Queue;
 import java.util.logging.Level;
 
-public class WifiRouter extends Router {
+public class WifiRouter extends Router implements com.netcracker.edu.inventory.model.device.entity.WifiRouter {
 
     protected String securityProtocol;
     protected String technologyVersion;

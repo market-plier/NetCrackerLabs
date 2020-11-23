@@ -7,25 +7,11 @@ import java.util.NoSuchElementException;
 import java.util.Queue;
 import java.util.logging.Level;
 
-public class TwistedPair<A extends Device,B extends Device> extends AbstractOneToOneConnection<A,B> {
+public class TwistedPair<A extends Device,B extends Device> extends AbstractOneToOneConnection<A,B> implements com.netcracker.edu.inventory.model.connection.entity.TwistedPair<A,B> {
 
     private Type type;
     private int length;
-    public enum Type {
-        need_init("<need_init>"),
-        UTP("UTP"),
-        FTP("FTP"),
-        STP("STP"),
-        SFTP("S/FTP"),
-        SFTP2("SFTP");
-        private final String fullName;
-        Type(String fullName) {
-            this.fullName = fullName;
-        }
-        String getFullName() {
-            return fullName;
-        }
-    }
+
     public TwistedPair(){
         this(Type.need_init,0);
     }

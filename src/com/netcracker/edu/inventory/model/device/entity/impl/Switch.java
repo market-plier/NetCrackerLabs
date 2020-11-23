@@ -6,7 +6,7 @@ import com.netcracker.edu.inventory.model.connection.ConnectorType;
 import java.util.*;
 import java.util.logging.Level;
 
-public class Switch extends Router {
+public class Switch extends Router implements com.netcracker.edu.inventory.model.device.entity.Switch {
     protected int numberOfPorts;
     protected ConnectorType portsType;
     protected List<Connection> allPortConnections;
@@ -41,7 +41,7 @@ public class Switch extends Router {
         }
         catch (IndexOutOfBoundsException e){
             logger.log(Level.SEVERE,e.getMessage(),e);
-            throw e;
+            throw new IndexOutOfBoundsException(e.getMessage());
         }
     }
 
@@ -56,7 +56,7 @@ public class Switch extends Router {
         }
         catch (IndexOutOfBoundsException exception){
             logger.log(Level.SEVERE,exception.getMessage(),exception);
-            throw exception;
+            throw new IndexOutOfBoundsException(exception.getMessage());
         }
     }
 

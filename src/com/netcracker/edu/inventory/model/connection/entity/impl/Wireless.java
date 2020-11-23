@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.logging.Level;
 
 
-public class Wireless<A extends Device,B extends Device> extends AbstractOneToManyConnection<A,B> {
+public class Wireless<A extends Device,B extends Device> extends AbstractOneToManyConnection<A,B> implements com.netcracker.edu.inventory.model.connection.entity.Wireless<A,B> {
 
     private String technology;
     private String protocol;

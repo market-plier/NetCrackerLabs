@@ -4,7 +4,7 @@ import java.util.NoSuchElementException;
 import java.util.Queue;
 import java.util.logging.Level;
 
-public class Battery extends AbstractDevice {
+public class Battery extends AbstractDevice implements com.netcracker.edu.inventory.model.device.entity.Battery {
     protected int chargeVolume;
 
     public int getChargeVolume() {

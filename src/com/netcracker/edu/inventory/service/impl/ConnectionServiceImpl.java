@@ -14,14 +14,12 @@ import java.util.logging.Logger;
 
 public class ConnectionServiceImpl implements ConnectionService {
 
-    private static ConnectionService connectionService=null;
-    private final Logger logger = Logger.getLogger(ConnectionServiceImpl.class.getName());
-    private final IOService ioService = new IOServiceImpl();
 
-    public static ConnectionService getConnectionService(){
-        if (connectionService==null)
-            connectionService = new ConnectionServiceImpl();
-        return connectionService;
+    private final Logger logger = Logger.getLogger(ConnectionServiceImpl.class.getName());
+    private  IOService ioService;
+
+    public ConnectionServiceImpl() {
+        ioService= new IOServiceImpl();
     }
 
     @Override

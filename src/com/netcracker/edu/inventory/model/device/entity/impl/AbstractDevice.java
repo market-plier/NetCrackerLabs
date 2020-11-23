@@ -20,7 +20,10 @@ public abstract class AbstractDevice implements Device  {
 
     public int compareTo(Device device)
     {
+        if (device != null){
         return Integer.compare(getIn(),device.getIn());
+        }
+        return 1;
     }
 
     @Override

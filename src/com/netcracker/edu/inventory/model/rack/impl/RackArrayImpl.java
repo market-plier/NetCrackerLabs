@@ -1,9 +1,9 @@
 package com.netcracker.edu.inventory.model.rack.impl;
 
+import com.netcracker.edu.inventory.InventoryFactoryManager;
 import com.netcracker.edu.inventory.exception.DeviceValidationException;
 import com.netcracker.edu.inventory.model.device.Device;
 import com.netcracker.edu.inventory.model.rack.Rack;
-import com.netcracker.edu.inventory.service.impl.ServiceImpl;
 import com.netcracker.edu.location.Location;
 
 import java.util.logging.Level;
@@ -85,8 +85,7 @@ public class RackArrayImpl<D extends Device> implements Rack<D> {
 
     @Override
     public boolean insertDevToSlot(D device, int index) {
-        ServiceImpl service = new ServiceImpl();
-        if (service.getDeviceService().isValidDeviceForInsertToRack(device)) {
+        if (InventoryFactoryManager.getServiceFactory().createDeviceServiceImpl().isValidDeviceForInsertToRack(device)) {
             if (!typeOfDevices.isAssignableFrom(device.getClass())) {
                 IllegalArgumentException ex = new IllegalArgumentException("тип передаваемого объекта не совместим с типом, который может\n" +
                         "хранить стойка");

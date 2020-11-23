@@ -4,7 +4,8 @@ import com.netcracker.edu.inventory.model.device.Device;
 
 import java.util.Comparator;
 
-class DeviceInComparator implements Comparator<Device>{
+class DeviceInComparator implements Comparator<Device> {
+
     @Override
     public int compare(Device device1, Device device2) {
         if (device1 == null && device2 == null) {
@@ -28,5 +29,3 @@ class DeviceInComparator implements Comparator<Device>{
         return device1.getIn() - device2.getIn();
     }
 }
-
-
