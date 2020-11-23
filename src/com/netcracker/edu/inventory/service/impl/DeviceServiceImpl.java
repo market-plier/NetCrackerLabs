@@ -16,14 +16,18 @@ import java.util.logging.Logger;
 
 class DeviceServiceImpl implements DeviceService {
 
-
+    private static DeviceService deviceService=null;
     private final Logger logger = Logger.getLogger(DeviceServiceImpl.class.getName());
-    private IOService ioService;
+    private final IOService ioService = new IOServiceImpl();
     private final DeviceFiltrateService filtrateService = new DeviceFiltrateService();
 
-public DeviceServiceImpl(){
-    ioService = new IOServiceImpl();
-}
+    public static DeviceService getDeviceService() {
+
+        if (deviceService == null) {
+            deviceService = new DeviceServiceImpl();
+        }
+        return deviceService;
+    }
 
     @Override
     public void sortByIN(Device[] devices) {

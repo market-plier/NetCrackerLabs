@@ -8,16 +8,16 @@ import com.netcracker.edu.inventory.service.ServiceFactory;
 public class ServiceFactoryImpl implements ServiceFactory {
     @Override
     public DeviceService createDeviceServiceImpl() {
-        return new DeviceServiceImpl();
+        return DeviceServiceImpl.getDeviceService();
     }
 
     @Override
     public ConnectionService createConnectionServiceImpl() {
-        return new ConnectionServiceImpl();
+        return ConnectionServiceImpl.getConnectionService();
     }
 
     @Override
     public RackService createRackServiceImpl() {
-        return new RackServiceImpl();
+        return RackServiceImpl.getRackService();
     }
 }
