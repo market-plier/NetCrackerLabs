@@ -38,25 +38,31 @@ abstract class AbstractOneToManyConnection<A extends Device,B extends Device> ex
 
     @Override
     public B getBPoint(int deviceNumber) {
-        try {
+        if(indexIsValid(deviceNumber)){
             return bPoints.get(deviceNumber);
         }
-        catch (IndexOutOfBoundsException exception){
-            logger.log(Level.SEVERE,exception.getMessage(),exception);
+        else {
+            IndexOutOfBoundsException exception = new IndexOutOfBoundsException();
+            logger.log(Level.SEVERE, exception.getMessage(), exception);
             throw exception;
         }
     }
 
+
+    private boolean indexIsValid(int index){
+        return index>=0 && index<new ArrayList<>(bPoints).size();
+    }
     @Override
     public void setBPoint(B device, int deviceNumber) {
-        try {
+       if(indexIsValid(deviceNumber)){
             bPoints = new ArrayList<>(bPoints);
             bPoints.set(deviceNumber, device);
         }
-        catch (IndexOutOfBoundsException e){
-            logger.log(Level.SEVERE,e.getMessage(),e);
-            throw e;
-        }
+       else {
+           IndexOutOfBoundsException e = new IndexOutOfBoundsException();
+           logger.log(Level.SEVERE, e.getMessage(), e);
+           throw e;
+       }
     }
 
     @Override
