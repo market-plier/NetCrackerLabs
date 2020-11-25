@@ -50,7 +50,7 @@ abstract class AbstractOneToManyConnection<A extends Device,B extends Device> ex
 
 
     private boolean indexIsValid(int index){
-        return index>=0 && index<new ArrayList<>(bPoints).size();
+        return index>=0 && index<bPoints.size();
     }
     @Override
     public void setBPoint(B device, int deviceNumber) {
