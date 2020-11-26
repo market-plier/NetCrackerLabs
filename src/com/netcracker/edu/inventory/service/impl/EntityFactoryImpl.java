@@ -6,15 +6,24 @@ import com.netcracker.edu.inventory.model.connection.entity.OpticFiber;
 import com.netcracker.edu.inventory.model.connection.entity.ThinCoaxial;
 import com.netcracker.edu.inventory.model.connection.entity.TwistedPair;
 import com.netcracker.edu.inventory.model.connection.entity.Wireless;
+import com.netcracker.edu.inventory.model.connection.entity.wrapper.immutable.OpticFiberImmutableWrapper;
+import com.netcracker.edu.inventory.model.connection.entity.wrapper.immutable.ThinCoaxialImmutableWrapper;
+import com.netcracker.edu.inventory.model.connection.entity.wrapper.immutable.TwistedPairImmutableWrapper;
+import com.netcracker.edu.inventory.model.connection.entity.wrapper.immutable.WirelessImmutableWrapper;
 import com.netcracker.edu.inventory.model.device.Device;
 import com.netcracker.edu.inventory.model.device.entity.Battery;
 import com.netcracker.edu.inventory.model.device.entity.Router;
 import com.netcracker.edu.inventory.model.device.entity.Switch;
 import com.netcracker.edu.inventory.model.device.entity.WifiRouter;
+import com.netcracker.edu.inventory.model.device.entity.wrapper.immutable.BatteryImmutableWrapper;
+import com.netcracker.edu.inventory.model.device.entity.wrapper.immutable.RouterImmutableWrapper;
+import com.netcracker.edu.inventory.model.device.entity.wrapper.immutable.SwitchImmutableWrapper;
+import com.netcracker.edu.inventory.model.device.entity.wrapper.immutable.WifiRouterImmutableWrapper;
 import com.netcracker.edu.inventory.model.rack.Rack;
 import com.netcracker.edu.inventory.model.rack.impl.RackArrayImpl;
 import com.netcracker.edu.inventory.service.EntityFactory;
 
+import java.beans.PropertyChangeListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -86,5 +95,66 @@ public class EntityFactoryImpl implements EntityFactory {
         IllegalArgumentException ex = new IllegalArgumentException("Name is null");
         logger.log(Level.SEVERE, ex.getMessage(), ex);
         throw ex;
+    }
+
+    @Override
+    public <T extends NetworkElement> T getImmutableNetworkElement(T original) throws IllegalArgumentException {
+
+        if (original != null) {
+            Class clazz = original.getClass();
+            if (Device.class.isAssignableFrom(clazz)){
+                if (Battery.class.isAssignableFrom(clazz)) {
+                    return (T)new BatteryImmutableWrapper((Battery)original);
+                }
+
+                if (WifiRouter.class.isAssignableFrom(clazz)) {
+                    return (T)new WifiRouterImmutableWrapper((WifiRouter) original);
+                }
+                if (Switch.class.isAssignableFrom(clazz)) {
+                    return (T)new SwitchImmutableWrapper((Switch)original);
+                }
+                if (Router.class.isAssignableFrom(clazz)) {
+                    return (T)new RouterImmutableWrapper((Router)original);
+                }
+            }
+            else if (Connection.class.isAssignableFrom(clazz)){
+                if (OpticFiber.class.isAssignableFrom(clazz)){
+                    return (T)new OpticFiberImmutableWrapper((OpticFiber)original);                }
+                if (ThinCoaxial.class.isAssignableFrom(clazz)){
+                    return (T)new ThinCoaxialImmutableWrapper((ThinCoaxial) original);                }
+                if (TwistedPair.class.isAssignableFrom(clazz)){
+                    return (T)new TwistedPairImmutableWrapper<>((TwistedPair)original);                }
+                if (Wireless.class.isAssignableFrom(clazz)){
+                    return (T)new WirelessImmutableWrapper((Wireless)original);                }
+            }
+        }
+        IllegalArgumentException exception = new IllegalArgumentException("Переданный объект не относится к семейству device или connection");
+        logger.log(Level.SEVERE,exception.getMessage(),exception);
+        throw exception;
+    }
+
+    @Override
+    public <D extends Device> Rack<D> getImmutableRack(Rack<D> original) throws IllegalArgumentException {
+        return null;
+    }
+
+    @Override
+    public <T extends NetworkElement> T subscribeTo(T original, PropertyChangeListener listener) throws IllegalArgumentException {
+        return null;
+    }
+
+    @Override
+    public <D extends Device> Rack<D> subscribeTo(Rack<D> original, PropertyChangeListener listener) throws IllegalArgumentException {
+        return null;
+    }
+
+    @Override
+    public boolean unsubscribeFrom(NetworkElement publisher, PropertyChangeListener listener) throws IllegalArgumentException {
+        return false;
+    }
+
+    @Override
+    public boolean unsubscribeFrom(Rack publisher, PropertyChangeListener listener) throws IllegalArgumentException {
+        return false;
     }
 }

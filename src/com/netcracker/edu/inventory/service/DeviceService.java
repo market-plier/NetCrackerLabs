@@ -2,7 +2,9 @@ package com.netcracker.edu.inventory.service;
 
 import com.netcracker.edu.inventory.model.device.Device;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**The interface DeviceService describe list of services of Inventory component, witch working with Device
  *
@@ -11,13 +13,10 @@ import java.io.*;
 public interface DeviceService {
 
     /**
-     * create new instance of Device by class
+     * Sort array of Device-s by identification number.
      *
-     * @param clazz - class of Device
-     * @return - instance of Device
-     * @see com.netcracker.edu.inventory.service.Service
+     * @param devices - array of Device-s, that need to be sorted
      */
-
     void sortByIN(Device[] devices);
 
     /**

@@ -10,20 +10,21 @@ import com.netcracker.edu.location.Trunk;
 import java.util.Queue;
 import java.util.logging.Level;
 
-public class TwistedPairImmutableWrapper<A extends Device,B extends Device> extends TwistedPairWrapper<A,B> {
+public class TwistedPairImmutableWrapper<A extends Device,B extends Device> extends ConnectionImmutableWrapper<A,B,TwistedPair> implements TwistedPair<A,B> {
 
     public TwistedPairImmutableWrapper(TwistedPair wrap) {
-        wrappee=wrap;
+        super(wrap);
+        twistedPairWrapee=wrap;
     }
 
     @Override
     public Type getType() {
-        return wrappee.getType();
+        return twistedPairWrapee.getType();
     }
 
     @Override
     public int getLength() {
-        return wrappee.getLength();
+        return twistedPairWrapee.getLength();
     }
 
     @Override
@@ -31,52 +32,20 @@ public class TwistedPairImmutableWrapper<A extends Device,B extends Device> exte
         logger.log(Level.WARNING,"Can't change immutable connection");
     }
 
-    @Override
-    public Trunk getTrunk() {
-        return wrappee.getTrunk();
-    }
-
-    @Override
-    public void setTrunk(Trunk trunk) {
-        logger.log(Level.WARNING,"Can't change immutable connection");
-
-    }
-
-    @Override
-    public int getSerialNumber() {
-        return wrappee.getSerialNumber();
-    }
-
-    @Override
-    public void setSerialNumber(int serialNumber) {
-        logger.log(Level.WARNING,"Can't change immutable connection");
-
-    }
-
-    @Override
-    public String getStatus() {
-        return wrappee.getStatus();
-    }
-
-    @Override
-    public void setStatus(String status) {
-        logger.log(Level.WARNING,"Can't change immutable connection");
-
-    }
 
     @Override
     public ConnectorType getAPointConnectorType() {
-        return wrappee.getAPointConnectorType();
+        return twistedPairWrapee.getAPointConnectorType();
     }
 
     @Override
     public ConnectorType getBPointConnectorType() {
-        return wrappee.getBPointConnectorType();
+        return twistedPairWrapee.getBPointConnectorType();
     }
 
     @Override
     public A getAPoint() {
-        return (A) wrappee.getAPoint();
+        return (A) twistedPairWrapee.getAPoint();
     }
 
     @Override
@@ -84,30 +53,14 @@ public class TwistedPairImmutableWrapper<A extends Device,B extends Device> exte
         logger.log(Level.WARNING,"Can't change immutable connection");
 
     }
-
     @Override
     public B getBPoint() {
-        return (B) wrappee.getBPoint();
+        return (B) twistedPairWrapee.getBPoint();
     }
 
     @Override
     public void setBPoint(B device) {
         logger.log(Level.WARNING,"Can't change immutable connection");
 
-    }
-
-    @Override
-    public void fillAllFields(Queue<Field> fields) {
-        wrappee.fillAllFields(fields);
-    }
-
-    @Override
-    public Queue<Field> getAllFields() {
-        return wrappee.getAllFields();
-    }
-
-    @Override
-    public int compareTo(Connection o) {
-        return wrappee.compareTo(o);
     }
 }

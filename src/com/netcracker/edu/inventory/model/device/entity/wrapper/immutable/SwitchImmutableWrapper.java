@@ -11,47 +11,48 @@ import java.util.List;
 import java.util.Queue;
 import java.util.logging.Level;
 
-public class SwitchImmutableWrapper extends SwitchWrapper {
+public class SwitchImmutableWrapper extends DeviceImmutableWrapper<Switch> implements Switch {
 
     public SwitchImmutableWrapper(Switch wrappee) {
-        this.wrappee=wrappee;
+        super(wrappee);
+        aSwitchWrappee=wrappee;
     }
 
     @Override
     public int getNumberOfPorts() {
-        return wrappee.getNumberOfPorts();
+        return aSwitchWrappee.getNumberOfPorts();
     }
 
     @Override
     public void setNumberOfPorts(int numberOfPorts) {
-        logger.log(Level.WARNING,"Can't change immutable connection");
+        logger.log(Level.WARNING, "Can't change immutable connection");
 
     }
 
     @Override
     public ConnectorType getPortsType() {
-        return wrappee.getPortsType();
+        return aSwitchWrappee.getPortsType();
     }
 
     @Override
     public Connection getPortConnection(int portNumber) {
-        return wrappee.getPortConnection(portNumber);
+        return aSwitchWrappee.getPortConnection(portNumber);
     }
 
     @Override
     public void setPortConnection(Connection connection, int portNumber) {
-        logger.log(Level.WARNING,"Can't change immutable connection");
+        logger.log(Level.WARNING, "Can't change immutable connection");
 
     }
 
     @Override
     public List<Connection> getAllPortConnections() {
-        return wrappee.getAllPortConnections();
+        return aSwitchWrappee.getAllPortConnections();
     }
 
     @Override
     public int getDataRate() {
-        return wrappee.getDataRate();
+        return aSwitchWrappee.getDataRate();
     }
 
     @Override
@@ -59,74 +60,5 @@ public class SwitchImmutableWrapper extends SwitchWrapper {
         logger.log(Level.WARNING,"Can't change immutable connection");
 
     }
-
-    @Override
-    public int getIn() {
-        return wrappee.getIn();
-    }
-
-    @Override
-    public void setIn(int in) {
-        logger.log(Level.WARNING,"Can't change immutable connection");
-
-    }
-
-    @Override
-    public String getType() {
-        return wrappee.getType();
-    }
-
-    @Override
-    public void setType(String type) {
-        logger.log(Level.WARNING,"Can't change immutable connection");
-
-    }
-
-    @Override
-    public String getManufacturer() {
-        return wrappee.getManufacturer();
-    }
-
-    @Override
-    public void setManufacturer(String manufacturer) {
-        logger.log(Level.WARNING,"Can't change immutable connection");
-
-    }
-
-    @Override
-    public String getModel() {
-        return wrappee.getModel();
-    }
-
-    @Override
-    public void setModel(String model) {
-        logger.log(Level.WARNING,"Can't change immutable connection");
-
-    }
-
-    @Override
-    public Date getProductionDate() {
-        return wrappee.getProductionDate();
-    }
-
-    @Override
-    public void setProductionDate(Date productionDate) {
-        logger.log(Level.WARNING,"Can't change immutable connection");
-
-    }
-
-    @Override
-    public void fillAllFields(Queue<Field> fields) {
-        wrappee.fillAllFields(fields);
-    }
-
-    @Override
-    public Queue<Field> getAllFields() {
-        return wrappee.getAllFields();
-    }
-
-    @Override
-    public int compareTo(Device o) {
-        return wrappee.compareTo(o);
-    }
 }
+

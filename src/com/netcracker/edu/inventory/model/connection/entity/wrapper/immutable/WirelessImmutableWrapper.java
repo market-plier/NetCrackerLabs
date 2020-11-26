@@ -2,7 +2,7 @@ package com.netcracker.edu.inventory.model.connection.entity.wrapper.immutable;
 
 import com.netcracker.edu.inventory.model.connection.Connection;
 import com.netcracker.edu.inventory.model.connection.ConnectorType;
-import com.netcracker.edu.inventory.model.connection.entity.impl.Wireless;
+import com.netcracker.edu.inventory.model.connection.entity.Wireless;
 import com.netcracker.edu.inventory.model.connection.entity.wrapper.WirelessWrapper;
 import com.netcracker.edu.inventory.model.device.Device;
 import com.netcracker.edu.location.Trunk;
@@ -11,21 +11,23 @@ import java.util.List;
 import java.util.Queue;
 import java.util.logging.Level;
 
-public class WirelessImmutableWrapper<A extends Device,B extends Device> extends WirelessWrapper<A,B> {
+public class WirelessImmutableWrapper<A extends Device,B extends Device> extends ConnectionImmutableWrapper<A,B,Wireless>
+implements Wireless<A,B>
+{
 
-    public WirelessImmutableWrapper(Wireless wrappee) {
-        this.wrappee=wrappee;
+    public WirelessImmutableWrapper(Wireless wrappe) {
+        super(wrappe);
+        wirelessWrapee=wrappe;
     }
 
     @Override
     public String getTechnology() {
-        logger.log(Level.WARNING,"Can't change immutable connection");
-        return null;
+        return wirelessWrapee.getTechnology();
     }
 
     @Override
     public String getProtocol() {
-        return wrappee.getProtocol();
+        return wirelessWrapee.getProtocol();
     }
 
     @Override
@@ -36,7 +38,7 @@ public class WirelessImmutableWrapper<A extends Device,B extends Device> extends
 
     @Override
     public int getVersion() {
-        return wrappee.getVersion();
+        return wirelessWrapee.getVersion();
     }
 
     @Override
@@ -46,51 +48,18 @@ public class WirelessImmutableWrapper<A extends Device,B extends Device> extends
     }
 
     @Override
-    public Trunk getTrunk() {
-        return wrappee.getTrunk();
-    }
-
-    @Override
-    public void setTrunk(Trunk trunk) {
-        logger.log(Level.WARNING,"Can't change immutable connection");
-
-    }
-
-    @Override
-    public int getSerialNumber() {
-        return wrappee.getSerialNumber();
-    }
-
-    @Override
-    public void setSerialNumber(int serialNumber) {
-        logger.log(Level.WARNING,"Can't change immutable connection");
-
-    }
-
-    @Override
-    public String getStatus() {
-        return wrappee.getStatus();
-    }
-
-    @Override
-    public void setStatus(String status) {
-        logger.log(Level.WARNING,"Can't change immutable connection");
-
-    }
-
-    @Override
     public ConnectorType getAPointConnectorType() {
-        return wrappee.getAPointConnectorType();
+        return wirelessWrapee.getAPointConnectorType();
     }
 
     @Override
     public ConnectorType getBPointConnectorType() {
-        return wrappee.getBPointConnectorType();
+        return wirelessWrapee.getBPointConnectorType();
     }
 
     @Override
     public A getAPoint() {
-        return (A)wrappee.getAPoint();
+        return (A)wirelessWrapee.getAPoint();
     }
 
     @Override
@@ -101,7 +70,7 @@ public class WirelessImmutableWrapper<A extends Device,B extends Device> extends
 
     @Override
     public List<B> getBPoints() {
-        return wrappee.getBPoints();
+        return wirelessWrapee.getBPoints();
     }
 
     @Override
@@ -112,32 +81,17 @@ public class WirelessImmutableWrapper<A extends Device,B extends Device> extends
 
     @Override
     public int getBCapacity() {
-        return wrappee.getBCapacity();
+        return wirelessWrapee.getBCapacity();
     }
 
     @Override
     public B getBPoint(int deviceNumber) {
-        return (B)wrappee.getBPoint(deviceNumber);
+        return (B)wirelessWrapee.getBPoint(deviceNumber);
     }
 
     @Override
     public void setBPoint(B device, int deviceNumber) {
         logger.log(Level.WARNING,"Can't change immutable connection");
 
-    }
-
-    @Override
-    public void fillAllFields(Queue<Field> fields) {
-        wrappee.fillAllFields(fields);
-    }
-
-    @Override
-    public Queue<Field> getAllFields() {
-        return wrappee.getAllFields();
-    }
-
-    @Override
-    public int compareTo(Connection o) {
-        return wrappee.compareTo(o);
     }
 }
