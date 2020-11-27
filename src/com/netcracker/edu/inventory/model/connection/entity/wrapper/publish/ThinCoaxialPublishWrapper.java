@@ -1,21 +1,17 @@
-package com.netcracker.edu.inventory.model.connection.entity.wrapper.immutable;
+package com.netcracker.edu.inventory.model.connection.entity.wrapper.publish;
 
-import com.netcracker.edu.inventory.model.connection.Connection;
 import com.netcracker.edu.inventory.model.connection.ConnectorType;
 import com.netcracker.edu.inventory.model.connection.entity.ThinCoaxial;
-import com.netcracker.edu.inventory.model.connection.entity.wrapper.ConnectionWrapper;
-import com.netcracker.edu.inventory.model.connection.entity.wrapper.ThinCoaxialWrapper;
 import com.netcracker.edu.inventory.model.device.Device;
-import com.netcracker.edu.location.Trunk;
 
-import java.util.Queue;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Set;
-import java.util.logging.Level;
 
-public class ThinCoaxialImmutableWrapper<T extends Device> extends ConnectionImmutableWrapper<T,T,ThinCoaxial<T>> implements ThinCoaxial<T> {
+public class ThinCoaxialPublishWrapper<T extends Device> extends ConnectionPublishWrapper<T,T, ThinCoaxial<T>> implements ThinCoaxial<T> {
 
-    public ThinCoaxialImmutableWrapper(ThinCoaxial<T> wrappee) {
-        super(wrappee);
+    public ThinCoaxialPublishWrapper(ThinCoaxial<T> wrappee, PropertyChangeListener listener) {
+        super(wrappee, listener);
         thinCoaxialWrapee = wrappee;
     }
 
@@ -26,13 +22,20 @@ public class ThinCoaxialImmutableWrapper<T extends Device> extends ConnectionImm
 
     @Override
     public boolean addDevice(T device) {
-        logger.log(Level.WARNING, "Can't change immutable connection");
-        return false;
+        for (PropertyChangeListener listener: listeners) {
+            listener.propertyChange(new PropertyChangeEvent(this, "devices",null, device));
+        }
+        return thinCoaxialWrapee.addDevice(device);
     }
 
     @Override
     public boolean removeDevice(T device) {
-        logger.log(Level.WARNING, "Can't change immutable connection");
+        if (thinCoaxialWrapee.removeDevice(device)){
+            for (PropertyChangeListener listener: listeners) {
+                listener.propertyChange(new PropertyChangeEvent(this, "devices", device, null));
+            }
+            return true;
+        }
         return false;
     }
 

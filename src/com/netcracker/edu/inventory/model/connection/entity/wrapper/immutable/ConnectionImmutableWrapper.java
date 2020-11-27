@@ -12,7 +12,7 @@ import com.netcracker.edu.location.Trunk;
 import java.util.Queue;
 import java.util.logging.Level;
 
-public class ConnectionImmutableWrapper<A extends Device,B extends Device,T extends Connection> extends ConnectionWrapper<A,B> {
+public class ConnectionImmutableWrapper<A extends Device,B extends Device,T extends Connection<A,B>> extends ConnectionWrapper<A,B> {
 
     public ConnectionImmutableWrapper(T wrappee) {
         this.wrappee=wrappee;

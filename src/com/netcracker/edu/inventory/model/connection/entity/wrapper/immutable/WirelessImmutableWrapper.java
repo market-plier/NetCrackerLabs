@@ -11,11 +11,11 @@ import java.util.List;
 import java.util.Queue;
 import java.util.logging.Level;
 
-public class WirelessImmutableWrapper<A extends Device,B extends Device> extends ConnectionImmutableWrapper<A,B,Wireless>
+public class WirelessImmutableWrapper<A extends Device,B extends Device> extends ConnectionImmutableWrapper<A,B,Wireless<A,B>>
 implements Wireless<A,B>
 {
 
-    public WirelessImmutableWrapper(Wireless wrappe) {
+    public WirelessImmutableWrapper(Wireless<A,B> wrappe) {
         super(wrappe);
         wirelessWrapee=wrappe;
     }
@@ -59,7 +59,7 @@ implements Wireless<A,B>
 
     @Override
     public A getAPoint() {
-        return (A)wirelessWrapee.getAPoint();
+        return wirelessWrapee.getAPoint();
     }
 
     @Override
@@ -86,7 +86,7 @@ implements Wireless<A,B>
 
     @Override
     public B getBPoint(int deviceNumber) {
-        return (B)wirelessWrapee.getBPoint(deviceNumber);
+        return wirelessWrapee.getBPoint(deviceNumber);
     }
 
     @Override

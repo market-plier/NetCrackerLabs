@@ -11,9 +11,9 @@ import com.netcracker.edu.location.Trunk;
 import java.util.Queue;
 import java.util.logging.Level;
 
-public class OpticFiberImmutableWrapper<A extends Device,B extends Device> extends ConnectionImmutableWrapper<A,B,OpticFiber> implements OpticFiber<A,B> {
+public class OpticFiberImmutableWrapper<A extends Device,B extends Device> extends ConnectionImmutableWrapper<A,B,OpticFiber<A,B>> implements OpticFiber<A,B> {
 
-    public OpticFiberImmutableWrapper(OpticFiber opticFiberWrapee) {
+    public OpticFiberImmutableWrapper(OpticFiber<A,B> opticFiberWrapee) {
         super(opticFiberWrapee);
         this.opticFiberWrapee = opticFiberWrapee;
     }
@@ -46,7 +46,7 @@ public class OpticFiberImmutableWrapper<A extends Device,B extends Device> exten
 
     @Override
     public A getAPoint() {
-        return (A) opticFiberWrapee.getAPoint();
+        return opticFiberWrapee.getAPoint();
     }
 
     @Override
@@ -56,7 +56,7 @@ public class OpticFiberImmutableWrapper<A extends Device,B extends Device> exten
 
     @Override
     public B getBPoint() {
-        return (B) opticFiberWrapee.getBPoint();
+        return opticFiberWrapee.getBPoint();
     }
 
     @Override

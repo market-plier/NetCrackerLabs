@@ -10,9 +10,9 @@ import com.netcracker.edu.location.Trunk;
 import java.util.Queue;
 import java.util.logging.Level;
 
-public class TwistedPairImmutableWrapper<A extends Device,B extends Device> extends ConnectionImmutableWrapper<A,B,TwistedPair> implements TwistedPair<A,B> {
+public class TwistedPairImmutableWrapper<A extends Device,B extends Device> extends ConnectionImmutableWrapper<A,B,TwistedPair<A,B>> implements TwistedPair<A,B> {
 
-    public TwistedPairImmutableWrapper(TwistedPair wrap) {
+    public TwistedPairImmutableWrapper(TwistedPair<A,B> wrap) {
         super(wrap);
         twistedPairWrapee=wrap;
     }
@@ -45,7 +45,7 @@ public class TwistedPairImmutableWrapper<A extends Device,B extends Device> exte
 
     @Override
     public A getAPoint() {
-        return (A) twistedPairWrapee.getAPoint();
+        return twistedPairWrapee.getAPoint();
     }
 
     @Override
@@ -55,7 +55,7 @@ public class TwistedPairImmutableWrapper<A extends Device,B extends Device> exte
     }
     @Override
     public B getBPoint() {
-        return (B) twistedPairWrapee.getBPoint();
+        return  twistedPairWrapee.getBPoint();
     }
 
     @Override

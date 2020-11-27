@@ -10,6 +10,7 @@ import com.netcracker.edu.inventory.model.connection.entity.wrapper.immutable.Op
 import com.netcracker.edu.inventory.model.connection.entity.wrapper.immutable.ThinCoaxialImmutableWrapper;
 import com.netcracker.edu.inventory.model.connection.entity.wrapper.immutable.TwistedPairImmutableWrapper;
 import com.netcracker.edu.inventory.model.connection.entity.wrapper.immutable.WirelessImmutableWrapper;
+import com.netcracker.edu.inventory.model.connection.entity.wrapper.publish.*;
 import com.netcracker.edu.inventory.model.device.Device;
 import com.netcracker.edu.inventory.model.device.entity.Battery;
 import com.netcracker.edu.inventory.model.device.entity.Router;
@@ -19,8 +20,11 @@ import com.netcracker.edu.inventory.model.device.entity.wrapper.immutable.Batter
 import com.netcracker.edu.inventory.model.device.entity.wrapper.immutable.RouterImmutableWrapper;
 import com.netcracker.edu.inventory.model.device.entity.wrapper.immutable.SwitchImmutableWrapper;
 import com.netcracker.edu.inventory.model.device.entity.wrapper.immutable.WifiRouterImmutableWrapper;
+import com.netcracker.edu.inventory.model.device.entity.wrapper.publish.*;
 import com.netcracker.edu.inventory.model.rack.Rack;
 import com.netcracker.edu.inventory.model.rack.impl.RackArrayImpl;
+import com.netcracker.edu.inventory.model.rack.wrapper.RackImmutableWrapper;
+import com.netcracker.edu.inventory.model.rack.wrapper.RackPublishWrapper;
 import com.netcracker.edu.inventory.service.EntityFactory;
 
 import java.beans.PropertyChangeListener;
@@ -135,26 +139,89 @@ public class EntityFactoryImpl implements EntityFactory {
 
     @Override
     public <D extends Device> Rack<D> getImmutableRack(Rack<D> original) throws IllegalArgumentException {
-        return null;
+        return new RackImmutableWrapper<D>(original);
     }
 
     @Override
     public <T extends NetworkElement> T subscribeTo(T original, PropertyChangeListener listener) throws IllegalArgumentException {
-        return null;
+        if (original != null && listener!=null) {
+            Class clazz = original.getClass();
+            if (Device.class.isAssignableFrom(clazz)){
+                if (DevicePublishWrapper.class.isAssignableFrom(clazz)){
+                    ((DevicePublishWrapper)original).subscribe(listener);
+                    return original;
+                }
+                if (Battery.class.isAssignableFrom(clazz)) {
+                    return (T)new BatteryPublishWrapper((Battery)original,listener);
+                }
+
+                if (WifiRouter.class.isAssignableFrom(clazz)) {
+                    return (T)new WifiRouterPublishWrapper((WifiRouter) original,listener);
+                }
+                if (Switch.class.isAssignableFrom(clazz)) {
+                    return (T)new SwitchPublishWrapper((Switch)original,listener);
+                }
+                if (Router.class.isAssignableFrom(clazz)) {
+                    return (T)new RouterPublishWrapper((Router)original,listener);
+                }
+            }
+            else if (Connection.class.isAssignableFrom(clazz)){
+                if (ConnectionPublishWrapper.class.isAssignableFrom(clazz)){
+                    ((ConnectionPublishWrapper)original).subscribe(listener);
+                    return original;
+                }
+                if (OpticFiber.class.isAssignableFrom(clazz)){
+                    return (T)new OpticFiberPublishWrapper((OpticFiber)original,listener);                }
+                if (ThinCoaxial.class.isAssignableFrom(clazz)){
+                    return (T)new ThinCoaxialPublishWrapper((ThinCoaxial) original,listener);                }
+                if (TwistedPair.class.isAssignableFrom(clazz)){
+                    return (T)new TwistedPairPublishWrapper<>((TwistedPair)original,listener);                }
+                if (Wireless.class.isAssignableFrom(clazz)){
+                    return (T)new WirelessPublishWrapper((Wireless)original,listener);                }
+            }
+        }
+        IllegalArgumentException exception = new IllegalArgumentException("Переданный объект не относится к семейству device или connection");
+        logger.log(Level.SEVERE,exception.getMessage(),exception);
+        throw exception;
     }
 
     @Override
     public <D extends Device> Rack<D> subscribeTo(Rack<D> original, PropertyChangeListener listener) throws IllegalArgumentException {
-        return null;
+        if (original!=null) {
+            if (RackPublishWrapper.class.isAssignableFrom(original.getClass())) {
+                ((RackPublishWrapper<D>) original).subscribe(listener);
+                return original;
+            }
+            return new RackPublishWrapper<>(original, listener);
+        }
+        IllegalArgumentException exception = new IllegalArgumentException("Переданный объект не относится к семейству device или connection");
+        logger.log(Level.SEVERE,exception.getMessage(),exception);
+        throw exception;
     }
 
     @Override
     public boolean unsubscribeFrom(NetworkElement publisher, PropertyChangeListener listener) throws IllegalArgumentException {
-        return false;
+        if (publisher!= null) {
+            if (ConnectionPublishWrapper.class.isAssignableFrom(publisher.getClass())) {
+                return ((ConnectionPublishWrapper) publisher).unsubscribe(listener);
+            } else if (DevicePublishWrapper.class.isAssignableFrom(publisher.getClass())) {
+                return ((DevicePublishWrapper) publisher).unsubscribe(listener);
+            }
+        }
+        IllegalArgumentException exception = new IllegalArgumentException("Переданный объект не относится к семейству device или connection");
+        logger.log(Level.SEVERE,exception.getMessage(),exception);
+        throw exception;
     }
 
     @Override
     public boolean unsubscribeFrom(Rack publisher, PropertyChangeListener listener) throws IllegalArgumentException {
-        return false;
+        if (publisher!=null) {
+            if (RackPublishWrapper.class.isAssignableFrom(publisher.getClass())) {
+                return ((RackPublishWrapper) publisher).unsubscribe(listener);
+            }
+        }
+        IllegalArgumentException exception = new IllegalArgumentException("Переданный объект не относится к rackpublishwrapper");
+        logger.log(Level.SEVERE,exception.getMessage(),exception);
+        throw exception;
     }
 }

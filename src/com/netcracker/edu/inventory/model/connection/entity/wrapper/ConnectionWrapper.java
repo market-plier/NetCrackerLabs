@@ -14,11 +14,11 @@ import java.util.logging.Logger;
 
 public abstract class ConnectionWrapper<A extends Device,B extends Device> implements Connection<A,B> {
 
-    protected Connection wrappee;
-    protected OpticFiber opticFiberWrapee;
-    protected ThinCoaxial thinCoaxialWrapee;
-    protected Wireless wirelessWrapee;
-    protected TwistedPair twistedPairWrapee;
+    protected Connection<A,B> wrappee;
+    protected OpticFiber<A,B> opticFiberWrapee;
+    protected ThinCoaxial<A> thinCoaxialWrapee;
+    protected Wireless<A,B> wirelessWrapee;
+    protected TwistedPair<A,B> twistedPairWrapee;
 
     protected Logger logger = Logger.getLogger(Connection.class.getName());
 
