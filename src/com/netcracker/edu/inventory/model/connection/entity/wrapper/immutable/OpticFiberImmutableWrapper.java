@@ -1,14 +1,9 @@
 package com.netcracker.edu.inventory.model.connection.entity.wrapper.immutable;
 
-import com.netcracker.edu.inventory.model.connection.Connection;
 import com.netcracker.edu.inventory.model.connection.ConnectorType;
 import com.netcracker.edu.inventory.model.connection.entity.OpticFiber;
-import com.netcracker.edu.inventory.model.connection.entity.wrapper.ConnectionWrapper;
-import com.netcracker.edu.inventory.model.connection.entity.wrapper.OpticFiberWrapper;
 import com.netcracker.edu.inventory.model.device.Device;
-import com.netcracker.edu.location.Trunk;
 
-import java.util.Queue;
 import java.util.logging.Level;
 
 public class OpticFiberImmutableWrapper<A extends Device,B extends Device> extends ConnectionImmutableWrapper<A,B,OpticFiber<A,B>> implements OpticFiber<A,B> {

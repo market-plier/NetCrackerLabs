@@ -2,12 +2,8 @@ package com.netcracker.edu.inventory.model.device.entity.wrapper.immutable;
 
 import com.netcracker.edu.inventory.model.connection.Connection;
 import com.netcracker.edu.inventory.model.connection.ConnectorType;
-import com.netcracker.edu.inventory.model.device.Device;
 import com.netcracker.edu.inventory.model.device.entity.WifiRouter;
-import com.netcracker.edu.inventory.model.device.entity.wrapper.WifiRouterWrapper;
 
-import java.util.Date;
-import java.util.Queue;
 import java.util.logging.Level;
 
 public class WifiRouterImmutableWrapper extends DeviceImmutableWrapper<WifiRouter> implements WifiRouter {

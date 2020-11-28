@@ -1,14 +1,10 @@
 package com.netcracker.edu.inventory.model.connection.entity.wrapper.immutable;
 
-import com.netcracker.edu.inventory.model.connection.Connection;
 import com.netcracker.edu.inventory.model.connection.ConnectorType;
 import com.netcracker.edu.inventory.model.connection.entity.Wireless;
-import com.netcracker.edu.inventory.model.connection.entity.wrapper.WirelessWrapper;
 import com.netcracker.edu.inventory.model.device.Device;
-import com.netcracker.edu.location.Trunk;
 
 import java.util.List;
-import java.util.Queue;
 import java.util.logging.Level;
 
 public class WirelessImmutableWrapper<A extends Device,B extends Device> extends ConnectionImmutableWrapper<A,B,Wireless<A,B>>

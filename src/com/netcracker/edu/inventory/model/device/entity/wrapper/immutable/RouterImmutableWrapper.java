@@ -1,11 +1,7 @@
 package com.netcracker.edu.inventory.model.device.entity.wrapper.immutable;
 
-import com.netcracker.edu.inventory.model.device.Device;
 import com.netcracker.edu.inventory.model.device.entity.Router;
-import com.netcracker.edu.inventory.model.device.entity.wrapper.RouterWrapper;
 
-import java.util.Date;
-import java.util.Queue;
 import java.util.logging.Level;
 
 public class RouterImmutableWrapper extends DeviceImmutableWrapper<Router> implements Router {
