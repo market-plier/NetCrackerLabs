@@ -6,21 +6,13 @@ import com.netcracker.edu.inventory.model.connection.entity.OpticFiber;
 import com.netcracker.edu.inventory.model.connection.entity.ThinCoaxial;
 import com.netcracker.edu.inventory.model.connection.entity.TwistedPair;
 import com.netcracker.edu.inventory.model.connection.entity.Wireless;
-import com.netcracker.edu.inventory.model.connection.entity.wrapper.immutable.OpticFiberImmutableWrapper;
-import com.netcracker.edu.inventory.model.connection.entity.wrapper.immutable.ThinCoaxialImmutableWrapper;
-import com.netcracker.edu.inventory.model.connection.entity.wrapper.immutable.TwistedPairImmutableWrapper;
-import com.netcracker.edu.inventory.model.connection.entity.wrapper.immutable.WirelessImmutableWrapper;
-import com.netcracker.edu.inventory.model.connection.entity.wrapper.publish.*;
+import com.netcracker.edu.inventory.model.connection.entity.wrapper.*;
 import com.netcracker.edu.inventory.model.device.Device;
 import com.netcracker.edu.inventory.model.device.entity.Battery;
 import com.netcracker.edu.inventory.model.device.entity.Router;
 import com.netcracker.edu.inventory.model.device.entity.Switch;
 import com.netcracker.edu.inventory.model.device.entity.WifiRouter;
-import com.netcracker.edu.inventory.model.device.entity.wrapper.immutable.BatteryImmutableWrapper;
-import com.netcracker.edu.inventory.model.device.entity.wrapper.immutable.RouterImmutableWrapper;
-import com.netcracker.edu.inventory.model.device.entity.wrapper.immutable.SwitchImmutableWrapper;
-import com.netcracker.edu.inventory.model.device.entity.wrapper.immutable.WifiRouterImmutableWrapper;
-import com.netcracker.edu.inventory.model.device.entity.wrapper.publish.*;
+import com.netcracker.edu.inventory.model.device.entity.wrapper.*;
 import com.netcracker.edu.inventory.model.rack.Rack;
 import com.netcracker.edu.inventory.model.rack.impl.RackArrayImpl;
 import com.netcracker.edu.inventory.model.rack.wrapper.RackImmutableWrapper;
@@ -108,28 +100,31 @@ public class EntityFactoryImpl implements EntityFactory {
             Class clazz = original.getClass();
             if (Device.class.isAssignableFrom(clazz)){
                 if (Battery.class.isAssignableFrom(clazz)) {
-                    return (T)new BatteryImmutableWrapper((Battery)original);
+                    return (T)new BatteryWrapper(new DeviceImmutableWrapper<>((Battery)original));
                 }
-
                 if (WifiRouter.class.isAssignableFrom(clazz)) {
-                    return (T)new WifiRouterImmutableWrapper((WifiRouter) original);
+                    return (T)new WifiRouterWrapper(new DeviceImmutableWrapper<>((WifiRouter)original));
                 }
                 if (Switch.class.isAssignableFrom(clazz)) {
-                    return (T)new SwitchImmutableWrapper((Switch)original);
+                    return (T)new SwitchWrapper(new DeviceImmutableWrapper<>((Switch)original));
                 }
                 if (Router.class.isAssignableFrom(clazz)) {
-                    return (T)new RouterImmutableWrapper((Router)original);
+                    return (T)new RouterWrapper(new DeviceImmutableWrapper<>((Router)original));
                 }
             }
             else if (Connection.class.isAssignableFrom(clazz)){
                 if (OpticFiber.class.isAssignableFrom(clazz)){
-                    return (T)new OpticFiberImmutableWrapper((OpticFiber)original);                }
+                    return (T)new OpticFiberWrapper(new ConnectionImmutableWrapper((OpticFiber)original));
+                }
                 if (ThinCoaxial.class.isAssignableFrom(clazz)){
-                    return (T)new ThinCoaxialImmutableWrapper((ThinCoaxial) original);                }
+                    return (T)new ThinCoaxialWrapper(new ConnectionImmutableWrapper((ThinCoaxial)original));
+                }
                 if (TwistedPair.class.isAssignableFrom(clazz)){
-                    return (T)new TwistedPairImmutableWrapper<>((TwistedPair)original);                }
+                    return (T)new TwistedPairWrapper(new ConnectionImmutableWrapper((TwistedPair)original));
+                }
                 if (Wireless.class.isAssignableFrom(clazz)){
-                    return (T)new WirelessImmutableWrapper((Wireless)original);                }
+                    return (T)new WirelessWrapper(new ConnectionImmutableWrapper((Wireless)original));
+                }
             }
         }
         IllegalArgumentException exception = new IllegalArgumentException("Переданный объект не относится к семейству device или connection");
@@ -147,37 +142,57 @@ public class EntityFactoryImpl implements EntityFactory {
         if (original != null && listener!=null) {
             Class clazz = original.getClass();
             if (Device.class.isAssignableFrom(clazz)){
-                if (DevicePublishWrapper.class.isAssignableFrom(clazz)){
-                    ((DevicePublishWrapper)original).subscribe(listener);
+                if (DeviceWrapper.class.isAssignableFrom(clazz)){
+                    ((DevicePublishWrapper)((DeviceWrapper)original).getWrapper()).subscribe(listener);
                     return original;
                 }
                 if (Battery.class.isAssignableFrom(clazz)) {
-                    return (T)new BatteryPublishWrapper((Battery)original,listener);
+                    BatteryWrapper  wrapper =new BatteryWrapper(new DevicePublishWrapper<>((Battery)original));
+                    ((DevicePublishWrapper)wrapper.getWrapper()).subscribe(listener);
+                    return (T)wrapper;
                 }
 
                 if (WifiRouter.class.isAssignableFrom(clazz)) {
-                    return (T)new WifiRouterPublishWrapper((WifiRouter) original,listener);
+                    WifiRouterWrapper  wrapper =new WifiRouterWrapper(new DevicePublishWrapper<>((WifiRouter)original));
+                    ((DevicePublishWrapper)wrapper.getWrapper()).subscribe(listener);
+                    return (T)wrapper;
                 }
                 if (Switch.class.isAssignableFrom(clazz)) {
-                    return (T)new SwitchPublishWrapper((Switch)original,listener);
+                    SwitchWrapper wrapper =new SwitchWrapper(new DevicePublishWrapper<>((Switch)original));
+                    ((DevicePublishWrapper)wrapper.getWrapper()).subscribe(listener);
+                    return (T)wrapper;
                 }
                 if (Router.class.isAssignableFrom(clazz)) {
-                    return (T)new RouterPublishWrapper((Router)original,listener);
+                    RouterWrapper  wrapper =new RouterWrapper(new DevicePublishWrapper<>((Router)original));
+                    ((DevicePublishWrapper)wrapper.getWrapper()).subscribe(listener);
+                    return (T)wrapper;
                 }
             }
             else if (Connection.class.isAssignableFrom(clazz)){
-                if (ConnectionPublishWrapper.class.isAssignableFrom(clazz)){
-                    ((ConnectionPublishWrapper)original).subscribe(listener);
+                if (ConnectionWrapper.class.isAssignableFrom(clazz)){
+                    ((ConnectionPublishWrapper)((ConnectionWrapper)original).getWrapper()).addListeners(listener);
                     return original;
                 }
                 if (OpticFiber.class.isAssignableFrom(clazz)){
-                    return (T)new OpticFiberPublishWrapper((OpticFiber)original,listener);                }
+                    OpticFiberWrapper wrapper =new OpticFiberWrapper(new ConnectionPublishWrapper<>((OpticFiber) original));
+                    ((ConnectionPublishWrapper)wrapper.getWrapper()).addListeners(listener);
+                    return (T)wrapper;
+                }
                 if (ThinCoaxial.class.isAssignableFrom(clazz)){
-                    return (T)new ThinCoaxialPublishWrapper((ThinCoaxial) original,listener);                }
+                    ThinCoaxialWrapper wrapper =new ThinCoaxialWrapper(new ConnectionPublishWrapper<>((ThinCoaxial) original));
+                    ((ConnectionPublishWrapper)wrapper.getWrapper()).addListeners(listener);
+                    return (T)wrapper;
+                }
                 if (TwistedPair.class.isAssignableFrom(clazz)){
-                    return (T)new TwistedPairPublishWrapper<>((TwistedPair)original,listener);                }
+                    TwistedPairWrapper wrapper =new TwistedPairWrapper(new ConnectionPublishWrapper<>((TwistedPair) original));
+                    ((ConnectionPublishWrapper)wrapper.getWrapper()).addListeners(listener);
+                    return (T)wrapper;
+                }
                 if (Wireless.class.isAssignableFrom(clazz)){
-                    return (T)new WirelessPublishWrapper((Wireless)original,listener);                }
+                    WirelessWrapper wrapper =new WirelessWrapper(new ConnectionPublishWrapper<>((Wireless) original));
+                    ((ConnectionPublishWrapper)wrapper.getWrapper()).addListeners(listener);
+                    return (T)wrapper;
+                }
             }
         }
         IllegalArgumentException exception = new IllegalArgumentException("Переданный объект не относится к семейству device или connection");
@@ -202,10 +217,13 @@ public class EntityFactoryImpl implements EntityFactory {
     @Override
     public boolean unsubscribeFrom(NetworkElement publisher, PropertyChangeListener listener) throws IllegalArgumentException {
         if (publisher!= null) {
-            if (ConnectionPublishWrapper.class.isAssignableFrom(publisher.getClass())) {
-                return ((ConnectionPublishWrapper) publisher).unsubscribe(listener);
-            } else if (DevicePublishWrapper.class.isAssignableFrom(publisher.getClass())) {
-                return ((DevicePublishWrapper) publisher).unsubscribe(listener);
+            if (ConnectionWrapper.class.isAssignableFrom(publisher.getClass())) {
+                if (ConnectionPublishWrapper.class.isAssignableFrom(((ConnectionWrapper)publisher).getWrapper().getClass())){
+                    return ((ConnectionPublishWrapper) ((ConnectionWrapper)publisher).getWrapper()).removeListeners(listener);
+                }
+            } else if (DeviceWrapper.class.isAssignableFrom(publisher.getClass())) {
+                if (DevicePublishWrapper.class.isAssignableFrom(((DeviceWrapper)publisher).getWrapper().getClass()))
+                return ((DevicePublishWrapper) ((DeviceWrapper)publisher).getWrapper()).unsubscribe(listener);
             }
         }
         IllegalArgumentException exception = new IllegalArgumentException("Переданный объект не относится к семейству device или connection");

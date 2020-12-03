@@ -1,93 +1,90 @@
-package com.netcracker.edu.inventory.model.connection.entity.wrapper.immutable;
+package com.netcracker.edu.inventory.model.connection.entity.wrapper;
 
 import com.netcracker.edu.inventory.model.connection.ConnectorType;
 import com.netcracker.edu.inventory.model.connection.entity.Wireless;
+import com.netcracker.edu.inventory.model.connection.entity.wrapper.ConnectionImmutableWrapper;
 import com.netcracker.edu.inventory.model.device.Device;
 
 import java.util.List;
 import java.util.logging.Level;
 
-public class WirelessImmutableWrapper<A extends Device,B extends Device> extends ConnectionImmutableWrapper<A,B,Wireless<A,B>>
+public class WirelessWrapper<A extends Device,B extends Device> extends ConnectionWrapper<A,B>
 implements Wireless<A,B>
 {
 
-    public WirelessImmutableWrapper(Wireless<A,B> wrappe) {
-        super(wrappe);
-        wirelessWrapee=wrappe;
+
+    public WirelessWrapper(AbstractConnectionWrapper<A, B> wrapper) {
+        super(wrapper);
     }
 
     @Override
     public String getTechnology() {
-        return wirelessWrapee.getTechnology();
+        return wrapper.getTechnology();
     }
 
     @Override
     public String getProtocol() {
-        return wirelessWrapee.getProtocol();
+        return wrapper.getProtocol();
     }
 
     @Override
     public void setProtocol(String protocol) {
-        logger.log(Level.WARNING,"Can't change immutable connection");
-
+        wrapper.setProtocol(protocol);
     }
 
     @Override
     public int getVersion() {
-        return wirelessWrapee.getVersion();
+        return wrapper.getVersion();
     }
 
     @Override
     public void setVersion(int version) {
-        logger.log(Level.WARNING,"Can't change immutable connection");
-
+        wrapper.setVersion(version);
     }
 
     @Override
     public ConnectorType getAPointConnectorType() {
-        return wirelessWrapee.getAPointConnectorType();
+        return wrapper.getAPointConnectorType();
     }
 
     @Override
     public ConnectorType getBPointConnectorType() {
-        return wirelessWrapee.getBPointConnectorType();
+        return wrapper.getBPointConnectorType();
     }
 
     @Override
     public A getAPoint() {
-        return wirelessWrapee.getAPoint();
+        return wrapper.getAPoint();
     }
 
     @Override
     public void setAPoint(A device) {
-        logger.log(Level.WARNING,"Can't change immutable connection");
-
+        wrapper.setAPoint(device);
     }
 
     @Override
     public List<B> getBPoints() {
-        return wirelessWrapee.getBPoints();
+        return wrapper.getBPoints();
     }
 
     @Override
     public void setBPoints(List<B> devices) {
-        logger.log(Level.WARNING,"Can't change immutable connection");
-
+        wrapper.setBPoints(devices);
     }
 
     @Override
     public int getBCapacity() {
-        return wirelessWrapee.getBCapacity();
+        return wrapper.getBCapacity();
     }
 
     @Override
     public B getBPoint(int deviceNumber) {
-        return wirelessWrapee.getBPoint(deviceNumber);
+        return wrapper.getBPoint(deviceNumber);
     }
 
     @Override
     public void setBPoint(B device, int deviceNumber) {
-        logger.log(Level.WARNING,"Can't change immutable connection");
+        wrapper.setBPoint(device, deviceNumber);
 
     }
 }
