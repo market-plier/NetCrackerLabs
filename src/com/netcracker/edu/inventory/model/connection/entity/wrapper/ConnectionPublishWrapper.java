@@ -48,7 +48,7 @@ public class ConnectionPublishWrapper<A extends Device,B extends Device> extends
 
     @Override
     public void setTrunk(Trunk trunk) {
-        notifyListeners(this,"devices",super.getTrunk(),trunk);
+        notifyListeners(this,"trunk",super.getTrunk(),trunk);
         super.setTrunk(trunk);
     }
 
