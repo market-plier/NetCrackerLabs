@@ -9,7 +9,6 @@ import com.netcracker.edu.io.impl.IOServiceImpl;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,7 +37,7 @@ class DeviceServiceImpl implements DeviceService {
     public void sortByProductionDate(Device[] devices) {
         if (devices != null) {
             Arrays.sort(devices, new DeviceDateComparator());
-        };
+        }
     }
 
     @Override

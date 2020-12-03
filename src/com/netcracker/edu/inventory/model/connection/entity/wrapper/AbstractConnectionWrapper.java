@@ -1,13 +1,11 @@
 package com.netcracker.edu.inventory.model.connection.entity.wrapper;
 
 import com.netcracker.edu.inventory.model.AbstractNetworkElementWrapper;
-import com.netcracker.edu.inventory.model.NetworkElement;
 import com.netcracker.edu.inventory.model.connection.Connection;
 import com.netcracker.edu.inventory.model.connection.ConnectorType;
 import com.netcracker.edu.inventory.model.connection.OneToOneConnection;
 import com.netcracker.edu.inventory.model.connection.entity.*;
 import com.netcracker.edu.inventory.model.device.Device;
-import com.netcracker.edu.inventory.model.device.entity.Battery;
 import com.netcracker.edu.location.Trunk;
 
 import java.util.List;

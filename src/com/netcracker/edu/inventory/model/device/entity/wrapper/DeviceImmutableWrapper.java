@@ -3,10 +3,7 @@ package com.netcracker.edu.inventory.model.device.entity.wrapper;
 import com.netcracker.edu.inventory.model.connection.Connection;
 import com.netcracker.edu.inventory.model.device.Device;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.Date;
-import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

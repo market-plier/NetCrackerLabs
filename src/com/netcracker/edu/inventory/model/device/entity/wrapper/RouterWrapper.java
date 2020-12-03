@@ -1,7 +1,6 @@
 package com.netcracker.edu.inventory.model.device.entity.wrapper;
 
 import com.netcracker.edu.inventory.model.device.entity.Router;
-import java.util.logging.Level;
 
 public class RouterWrapper extends DeviceWrapper implements Router {
 

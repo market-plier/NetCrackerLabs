@@ -1,17 +1,13 @@
 package com.netcracker.edu.inventory.model.device.entity.wrapper;
 
 import com.netcracker.edu.inventory.model.connection.Connection;
-import com.netcracker.edu.inventory.model.connection.ConnectorType;
 import com.netcracker.edu.inventory.model.device.Device;
-import com.netcracker.edu.inventory.model.device.entity.AllDevices;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.Flow;
 
 public class DevicePublishWrapper<T extends Device> extends AbstractDeviceWrapper  {
 

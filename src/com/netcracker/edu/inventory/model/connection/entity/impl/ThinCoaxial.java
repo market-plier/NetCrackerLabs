@@ -1,6 +1,5 @@
 package com.netcracker.edu.inventory.model.connection.entity.impl;
 
-import com.netcracker.edu.inventory.model.connection.AllToAllConnection;
 import com.netcracker.edu.inventory.model.connection.Connection;
 import com.netcracker.edu.inventory.model.connection.ConnectorType;
 import com.netcracker.edu.inventory.model.device.Device;

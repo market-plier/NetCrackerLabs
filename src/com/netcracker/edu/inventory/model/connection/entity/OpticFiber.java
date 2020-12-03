@@ -15,7 +15,7 @@ public interface OpticFiber<A extends Device, B extends Device> extends OneToOne
     void setLength(int length);
 
     enum Mode {
-        need_init, single, multi;
+        need_init, single, multi
     }
 
 }

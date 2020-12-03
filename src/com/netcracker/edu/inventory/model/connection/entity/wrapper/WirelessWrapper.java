@@ -2,11 +2,9 @@ package com.netcracker.edu.inventory.model.connection.entity.wrapper;
 
 import com.netcracker.edu.inventory.model.connection.ConnectorType;
 import com.netcracker.edu.inventory.model.connection.entity.Wireless;
-import com.netcracker.edu.inventory.model.connection.entity.wrapper.ConnectionImmutableWrapper;
 import com.netcracker.edu.inventory.model.device.Device;
 
 import java.util.List;
-import java.util.logging.Level;
 
 public class WirelessWrapper<A extends Device,B extends Device> extends ConnectionWrapper<A,B>
 implements Wireless<A,B>

@@ -3,8 +3,6 @@ package com.netcracker.edu.inventory.model.device.entity.wrapper;
 import com.netcracker.edu.inventory.model.connection.Connection;
 import com.netcracker.edu.inventory.model.connection.ConnectorType;
 import com.netcracker.edu.inventory.model.device.entity.WifiRouter;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 public class WifiRouterWrapper extends RouterWrapper implements WifiRouter {
 

@@ -1,12 +1,7 @@
 package com.netcracker.edu.inventory.model.connection.entity.wrapper;
 
-import com.netcracker.edu.inventory.model.AbstractNetworkElementWrapper;
-import com.netcracker.edu.inventory.model.NetworkElement;
 import com.netcracker.edu.inventory.model.connection.Connection;
-import com.netcracker.edu.inventory.model.connection.ConnectorType;
 import com.netcracker.edu.inventory.model.connection.entity.AllConnections;
-import com.netcracker.edu.inventory.model.connection.entity.ThinCoaxial;
-import com.netcracker.edu.inventory.model.connection.entity.Wireless;
 import com.netcracker.edu.inventory.model.device.Device;
 import com.netcracker.edu.location.Trunk;
 
@@ -14,8 +9,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
-import java.util.Set;
 
 public class ConnectionPublishWrapper<A extends Device,B extends Device> extends AbstractConnectionWrapper<A,B> implements AllConnections<A,B> {
 

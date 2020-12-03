@@ -1,15 +1,10 @@
 package com.netcracker.edu.inventory.model.connection.entity.wrapper;
 
 import com.netcracker.edu.inventory.model.connection.Connection;
-import com.netcracker.edu.inventory.model.connection.ConnectorType;
-import com.netcracker.edu.inventory.model.connection.entity.*;
-import com.netcracker.edu.inventory.model.connection.entity.wrapper.ConnectionWrapper;
 import com.netcracker.edu.inventory.model.device.Device;
 import com.netcracker.edu.location.Trunk;
 
 import java.util.List;
-import java.util.Queue;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

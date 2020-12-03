@@ -15,7 +15,7 @@ public interface TwistedPair<A extends Device, B extends Device> extends OneToOn
     void setLength(int length);
 
     enum Type {
-        need_init, UTP, FTP, STP, SslashFTP, SFTP;
+        need_init, UTP, FTP, STP, SslashFTP, SFTP
     }
 
 }
