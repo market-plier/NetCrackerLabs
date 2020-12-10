@@ -1,4 +1,4 @@
-package com.netcracker.edu.inventory.model.connection.entity.wrapper;
+package com.netcracker.edu.inventory.model.connection.entity.wrapper.implementations;
 
 import com.netcracker.edu.inventory.model.connection.Connection;
 import com.netcracker.edu.inventory.model.device.Device;

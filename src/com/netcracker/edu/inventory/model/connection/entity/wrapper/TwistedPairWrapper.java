@@ -2,6 +2,7 @@ package com.netcracker.edu.inventory.model.connection.entity.wrapper;
 
 import com.netcracker.edu.inventory.model.connection.ConnectorType;
 import com.netcracker.edu.inventory.model.connection.entity.TwistedPair;
+import com.netcracker.edu.inventory.model.connection.entity.wrapper.implementations.AbstractConnectionWrapper;
 import com.netcracker.edu.inventory.model.device.Device;
 
 public class TwistedPairWrapper<A extends Device,B extends Device> extends ConnectionWrapper<A,B> implements TwistedPair<A,B> {

@@ -1,6 +1,7 @@
 package com.netcracker.edu.inventory.model.device.entity.wrapper;
 
 import com.netcracker.edu.inventory.model.device.entity.Router;
+import com.netcracker.edu.inventory.model.device.entity.wrapper.implementations.AbstractDeviceWrapper;
 
 public class RouterWrapper extends DeviceWrapper implements Router {
 

@@ -3,6 +3,7 @@ package com.netcracker.edu.inventory.model.device.entity.wrapper;
 import com.netcracker.edu.inventory.model.connection.Connection;
 import com.netcracker.edu.inventory.model.connection.ConnectorType;
 import com.netcracker.edu.inventory.model.device.entity.Switch;
+import com.netcracker.edu.inventory.model.device.entity.wrapper.implementations.AbstractDeviceWrapper;
 
 import java.util.List;
 
