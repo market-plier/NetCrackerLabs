@@ -1,7 +1,6 @@
 package com.netcracker.edu.inventory.service.impl;
 
 import com.netcracker.edu.inventory.model.NetworkElement;
-import com.netcracker.edu.inventory.model.rack.Rack;
 import com.netcracker.edu.io.IOService;
 import com.netcracker.edu.io.impl.IOServiceImpl;
 

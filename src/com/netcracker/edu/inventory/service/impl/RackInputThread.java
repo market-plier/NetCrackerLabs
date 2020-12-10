@@ -5,11 +5,9 @@ import com.netcracker.edu.io.IOService;
 import com.netcracker.edu.io.impl.IOServiceImpl;
 
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.Callable;
-import java.util.logging.Logger;
 
 public class RackInputThread implements Callable<Collection<Rack>> {
 
