@@ -1,9 +1,6 @@
 package com.netcracker.edu.inventory.service.impl;
 
-import com.netcracker.edu.inventory.service.ConnectionService;
-import com.netcracker.edu.inventory.service.DeviceService;
-import com.netcracker.edu.inventory.service.RackService;
-import com.netcracker.edu.inventory.service.ServiceFactory;
+import com.netcracker.edu.inventory.service.*;
 
 public class ServiceFactoryImpl implements ServiceFactory {
     @Override
@@ -19,5 +16,10 @@ public class ServiceFactoryImpl implements ServiceFactory {
     @Override
     public RackService createRackServiceImpl() {
         return RackServiceImpl.getRackService();
+    }
+
+    @Override
+    public ConcurrentService createConcurrentServiceImpl() {
+        return new ConcurrentServiceImpl();
     }
 }

@@ -17,6 +17,7 @@ import com.netcracker.edu.inventory.model.rack.Rack;
 import com.netcracker.edu.inventory.model.rack.impl.RackArrayImpl;
 import com.netcracker.edu.inventory.model.rack.wrapper.RackImmutableWrapper;
 import com.netcracker.edu.inventory.model.rack.wrapper.RackPublishWrapper;
+import com.netcracker.edu.inventory.model.rack.wrapper.RackSynchronizedWrapper;
 import com.netcracker.edu.inventory.service.EntityFactory;
 
 import java.beans.PropertyChangeListener;
@@ -135,6 +136,50 @@ public class EntityFactoryImpl implements EntityFactory {
     @Override
     public <D extends Device> Rack<D> getImmutableRack(Rack<D> original) throws IllegalArgumentException {
         return new RackImmutableWrapper<D>(original);
+    }
+
+    @Override
+    public <T extends NetworkElement> T getSynchronizedNetworkElement(T original) throws IllegalArgumentException {
+
+        if (original != null) {
+            Class clazz = original.getClass();
+            if (Device.class.isAssignableFrom(clazz)){
+                if (Battery.class.isAssignableFrom(clazz)) {
+                    return (T)new BatteryWrapper(new DeviceSynchronizedWrapper((Battery)original));
+                }
+                if (WifiRouter.class.isAssignableFrom(clazz)) {
+                    return (T)new WifiRouterWrapper(new DeviceSynchronizedWrapper((WifiRouter)original));
+                }
+                if (Switch.class.isAssignableFrom(clazz)) {
+                    return (T)new SwitchWrapper(new DeviceSynchronizedWrapper((Switch)original));
+                }
+                if (Router.class.isAssignableFrom(clazz)) {
+                    return (T)new RouterWrapper(new DeviceSynchronizedWrapper((Router)original));
+                }
+            }
+            else if (Connection.class.isAssignableFrom(clazz)){
+                if (OpticFiber.class.isAssignableFrom(clazz)){
+                    return (T)new OpticFiberWrapper(new ConnectionSynchronizedWrapper((OpticFiber)original));
+                }
+                if (ThinCoaxial.class.isAssignableFrom(clazz)){
+                    return (T)new ThinCoaxialWrapper(new ConnectionSynchronizedWrapper((ThinCoaxial)original));
+                }
+                if (TwistedPair.class.isAssignableFrom(clazz)){
+                    return (T)new TwistedPairWrapper(new ConnectionSynchronizedWrapper((TwistedPair)original));
+                }
+                if (Wireless.class.isAssignableFrom(clazz)){
+                    return (T)new WirelessWrapper(new ConnectionSynchronizedWrapper((Wireless)original));
+                }
+            }
+        }
+        IllegalArgumentException exception = new IllegalArgumentException("Переданный объект не относится к семейству device или connection");
+        logger.log(Level.SEVERE,exception.getMessage(),exception);
+        throw exception;
+    }
+
+    @Override
+    public <D extends Device> Rack<D> getSynchronizedRack(Rack<D> original) throws IllegalArgumentException {
+        return new RackSynchronizedWrapper<>(original);
     }
 
     @Override

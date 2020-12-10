@@ -62,6 +62,26 @@ public interface EntityFactory {
     <D extends Device> Rack<D> getImmutableRack(Rack<D> original) throws IllegalArgumentException;
 
     /**
+     * Get original network element wrapped on synchronized wrapper.
+     *
+     * @param original - network element witch will be wrapped
+     * @param <T> - type of network element
+     * @return - wrapped original
+     * @throws IllegalArgumentException - if original network element null
+     */
+    <T extends NetworkElement> T getSynchronizedNetworkElement(T original) throws IllegalArgumentException;
+
+    /**
+     * Get original rack wrapped on synchronized wrapper.
+     *
+     * @param original - rack witch will be wrapped
+     * @param <D> - type of devices at rack
+     * @return - wrapped original
+     * @throws IllegalArgumentException - if original rack null
+     */
+    <D extends Device> Rack<D> getSynchronizedRack(Rack<D> original) throws IllegalArgumentException;
+
+    /**
      * Get original network element wrapped on publisher wrapper and/or add listener to publisher subscribe
      *
      * @param original - network element witch will be wrapped

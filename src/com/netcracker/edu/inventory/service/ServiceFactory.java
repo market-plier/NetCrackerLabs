@@ -26,4 +26,11 @@ public interface ServiceFactory {
      */
     RackService createRackServiceImpl();
 
+    /**
+     * Create ConcurrentService implementation
+     *
+     * @return implementation of ConcurrentService interface
+     */
+    ConcurrentService createConcurrentServiceImpl();
+
 }
