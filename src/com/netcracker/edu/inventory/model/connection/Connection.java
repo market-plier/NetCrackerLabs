@@ -12,7 +12,7 @@ import java.util.List;
  *
  * Created by makovetskyi on 10.11.16.
  */
-public interface Connection<A extends Device, B extends Device> extends NetworkElement<Connection> {
+public interface Connection<A extends Device, B extends Device> extends NetworkElement<Connection<A,B>, ConnectionPrimaryKey> {
 
     String PLANED = "Planed"; // must be default
     String ON_BUILD = "On build";

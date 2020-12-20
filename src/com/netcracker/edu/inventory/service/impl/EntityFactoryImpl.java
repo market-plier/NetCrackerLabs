@@ -1,30 +1,41 @@
 package com.netcracker.edu.inventory.service.impl;
 
 import com.netcracker.edu.inventory.model.NetworkElement;
+import com.netcracker.edu.inventory.model.Unique;
 import com.netcracker.edu.inventory.model.connection.Connection;
+import com.netcracker.edu.inventory.model.connection.ConnectionPrimaryKey;
 import com.netcracker.edu.inventory.model.connection.entity.OpticFiber;
 import com.netcracker.edu.inventory.model.connection.entity.ThinCoaxial;
 import com.netcracker.edu.inventory.model.connection.entity.TwistedPair;
 import com.netcracker.edu.inventory.model.connection.entity.Wireless;
+import com.netcracker.edu.inventory.model.connection.impl.ConnectionPK;
+import com.netcracker.edu.inventory.model.connection.entity.impl.DummyConnection;
 import com.netcracker.edu.inventory.model.connection.entity.wrapper.*;
 import com.netcracker.edu.inventory.model.connection.entity.wrapper.implementations.ConnectionImmutableWrapper;
 import com.netcracker.edu.inventory.model.connection.entity.wrapper.implementations.ConnectionPublishWrapper;
 import com.netcracker.edu.inventory.model.connection.entity.wrapper.implementations.ConnectionSynchronizedWrapper;
 import com.netcracker.edu.inventory.model.device.Device;
+import com.netcracker.edu.inventory.model.device.DevicePrimaryKey;
 import com.netcracker.edu.inventory.model.device.entity.Battery;
 import com.netcracker.edu.inventory.model.device.entity.Router;
 import com.netcracker.edu.inventory.model.device.entity.Switch;
 import com.netcracker.edu.inventory.model.device.entity.WifiRouter;
+import com.netcracker.edu.inventory.model.device.impl.DevicePK;
+import com.netcracker.edu.inventory.model.device.entity.impl.DummyDevice;
 import com.netcracker.edu.inventory.model.device.entity.wrapper.*;
 import com.netcracker.edu.inventory.model.device.entity.wrapper.implementations.DeviceImmutableWrapper;
 import com.netcracker.edu.inventory.model.device.entity.wrapper.implementations.DevicePublishWrapper;
 import com.netcracker.edu.inventory.model.device.entity.wrapper.implementations.DeviceSynchronizedWrapper;
 import com.netcracker.edu.inventory.model.rack.Rack;
+import com.netcracker.edu.inventory.model.rack.RackPrimaryKey;
 import com.netcracker.edu.inventory.model.rack.impl.RackArrayImpl;
+import com.netcracker.edu.inventory.model.rack.impl.RackPK;
 import com.netcracker.edu.inventory.model.rack.wrapper.RackImmutableWrapper;
 import com.netcracker.edu.inventory.model.rack.wrapper.RackPublishWrapper;
 import com.netcracker.edu.inventory.model.rack.wrapper.RackSynchronizedWrapper;
 import com.netcracker.edu.inventory.service.EntityFactory;
+import com.netcracker.edu.location.Location;
+import com.netcracker.edu.location.Trunk;
 
 import java.beans.PropertyChangeListener;
 import java.util.logging.Level;
@@ -98,6 +109,32 @@ public class EntityFactoryImpl implements EntityFactory {
         IllegalArgumentException ex = new IllegalArgumentException("Name is null");
         logger.log(Level.SEVERE, ex.getMessage(), ex);
         throw ex;
+    }
+
+    @Override
+    public DevicePrimaryKey createDevicePrimaryKey(int inventoryNumber) throws IllegalArgumentException {
+        return new DevicePK(inventoryNumber);
+    }
+
+    @Override
+    public ConnectionPrimaryKey createConnectionPrimaryKey(Trunk trunk, int serialNumber) throws IllegalArgumentException {
+        return new ConnectionPK(trunk, serialNumber);
+    }
+
+    @Override
+    public RackPrimaryKey createRackPrimaryKey(Location location) throws IllegalArgumentException {
+        return new RackPK(location);
+    }
+
+    @Override
+    public <K extends Unique.PrimaryKey, T extends Unique<K>> T createLazyInstance(K primaryKey) {
+        if (primaryKey instanceof ConnectionPrimaryKey){
+            return (T) new DummyConnection((ConnectionPrimaryKey)primaryKey);
+        }
+        if (primaryKey instanceof DevicePrimaryKey){
+            return (T) new DummyDevice((DevicePrimaryKey)primaryKey);
+        }
+        return null;
     }
 
     @Override

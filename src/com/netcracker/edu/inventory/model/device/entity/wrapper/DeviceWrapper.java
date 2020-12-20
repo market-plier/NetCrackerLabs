@@ -1,6 +1,7 @@
 package com.netcracker.edu.inventory.model.device.entity.wrapper;
 
 import com.netcracker.edu.inventory.model.device.Device;
+import com.netcracker.edu.inventory.model.device.DevicePrimaryKey;
 import com.netcracker.edu.inventory.model.device.entity.wrapper.implementations.AbstractDeviceWrapper;
 
 import java.util.Date;
@@ -81,5 +82,15 @@ public  class DeviceWrapper implements Device {
     @Override
     public int compareTo(Device o) {
         return wrapper.compareTo(o);
+    }
+
+    @Override
+    public boolean isLazy() {
+        return false;
+    }
+
+    @Override
+    public DevicePrimaryKey getPrimaryKey() {
+        return null;
     }
 }

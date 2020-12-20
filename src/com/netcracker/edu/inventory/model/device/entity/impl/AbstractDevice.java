@@ -1,6 +1,8 @@
 package com.netcracker.edu.inventory.model.device.entity.impl;
 
 import com.netcracker.edu.inventory.model.device.Device;
+import com.netcracker.edu.inventory.model.device.DevicePrimaryKey;
+import com.netcracker.edu.inventory.model.device.impl.DevicePK;
 
 import java.util.Date;
 import java.util.LinkedList;
@@ -18,9 +20,13 @@ public abstract class AbstractDevice implements Device  {
     protected Date productionDate;
     protected static Logger logger = Logger.getLogger(AbstractDevice.class.getName());
 
+    @Override
     public int compareTo(Device device)
     {
         if (device != null){
+            if (device.isLazy()){
+                return Integer.compare(getIn(),device.getPrimaryKey().getIn());
+            }
         return Integer.compare(getIn(),device.getIn());
         }
         return 1;
@@ -108,5 +114,17 @@ public abstract class AbstractDevice implements Device  {
     @Override
     public void setProductionDate(Date productionDate) {
         this.productionDate = productionDate;
+    }
+
+    @Override
+    public boolean isLazy() {
+        return false;
+    }
+
+    @Override
+    public DevicePrimaryKey getPrimaryKey() {
+        if (in==0)
+            return null;
+        return new DevicePK(in);
     }
 }

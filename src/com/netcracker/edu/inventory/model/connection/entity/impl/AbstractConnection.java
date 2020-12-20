@@ -1,7 +1,9 @@
 package com.netcracker.edu.inventory.model.connection.entity.impl;
 
 import com.netcracker.edu.inventory.model.connection.Connection;
+import com.netcracker.edu.inventory.model.connection.ConnectionPrimaryKey;
 import com.netcracker.edu.inventory.model.connection.ConnectorType;
+import com.netcracker.edu.inventory.model.connection.impl.ConnectionPK;
 import com.netcracker.edu.inventory.model.device.Device;
 import com.netcracker.edu.location.Trunk;
 
@@ -100,5 +102,17 @@ abstract class AbstractConnection<A extends Device, B extends Device> implements
     protected void setBPointConnectorType(ConnectorType type){
         if(getBPointConnectorType()==ConnectorType.need_init)
         bPointConnectorType=type;
+    }
+
+    @Override
+    public boolean isLazy() {
+        return false;
+    }
+
+    @Override
+    public ConnectionPrimaryKey getPrimaryKey() {
+        if (trunk == null || serialNumber == 0)
+            return null;
+        return new ConnectionPK(trunk,serialNumber);
     }
 }

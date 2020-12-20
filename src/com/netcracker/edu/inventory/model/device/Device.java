@@ -10,7 +10,8 @@ import java.util.Date;
  *
  * Created by makovetskyi on 05.10.2016.
  */
-public interface Device extends NetworkElement<Device> {
+public interface Device extends NetworkElement<Device, DevicePrimaryKey> {
+
     int getIn();
 
     void setIn(int in);
@@ -30,4 +31,5 @@ public interface Device extends NetworkElement<Device> {
     Date getProductionDate();
 
     void setProductionDate(Date productionDate);
+
 }

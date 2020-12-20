@@ -1,10 +1,10 @@
 package com.netcracker.edu.inventory.service;
 
 import com.netcracker.edu.inventory.model.device.Device;
+import com.netcracker.edu.inventory.model.device.DevicePrimaryKey;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
+import java.sql.SQLException;
 
 /**The interface DeviceService describe list of services of Inventory component, witch working with Device
  *
@@ -83,5 +83,32 @@ public interface DeviceService {
      * @return - received Device instance
      */
     Device inputDevice(InputStream inputStream) throws IOException, ClassNotFoundException;
+
+    /**
+     * Get device-entity from database by primary key.
+     *
+     * @param dbConnection - connection to database
+     * @param dpk - primary key of wanted device-entity
+     * @return wanted device-entity, if it exists on database, or null
+     */
+    Device getDeviceFromDB(java.sql.Connection dbConnection, DevicePrimaryKey dpk) throws SQLException;
+
+    /**
+     * Put device-entity into database
+     *
+     * @param dbConnection - connection to database
+     * @param device - device-entity, which should be added/updated
+     * @return true, if device-entity was added/updated, or false, if it was not
+     */
+    boolean putDeviceToDB(java.sql.Connection dbConnection, Device device) throws SQLException;
+
+    /**
+     * Remove device-entity from database by primary key.
+     *
+     * @param dbConnection - connection to database
+     * @param dpk - primary key of device-entity
+     * @return true, if device-entity was removed, or false, if it was not
+     */
+    boolean removeDeviceFromDB(java.sql.Connection dbConnection, DevicePrimaryKey dpk) throws SQLException;
 
 }

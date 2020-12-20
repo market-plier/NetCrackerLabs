@@ -4,6 +4,7 @@ import com.netcracker.edu.inventory.InventoryFactoryManager;
 import com.netcracker.edu.inventory.exception.DeviceValidationException;
 import com.netcracker.edu.inventory.model.device.Device;
 import com.netcracker.edu.inventory.model.rack.Rack;
+import com.netcracker.edu.inventory.model.rack.RackPrimaryKey;
 import com.netcracker.edu.location.Location;
 
 import java.util.logging.Level;
@@ -142,5 +143,17 @@ public class RackArrayImpl<D extends Device> implements Rack<D> {
             }
         }
         return temp;
+    }
+
+    @Override
+    public boolean isLazy() {
+        return false;
+    }
+
+    @Override
+    public RackPrimaryKey getPrimaryKey() {
+        if (location==null)
+            return null;
+        return new RackPK(location);
     }
 }

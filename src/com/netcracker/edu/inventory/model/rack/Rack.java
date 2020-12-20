@@ -1,5 +1,6 @@
 package com.netcracker.edu.inventory.model.rack;
 
+import com.netcracker.edu.inventory.model.Unique;
 import com.netcracker.edu.inventory.model.device.Device;
 import com.netcracker.edu.location.Location;
 
@@ -9,7 +10,7 @@ import com.netcracker.edu.location.Location;
  *
  * Created by makovetskyi on 05.10.2016.
  */
-public interface Rack<D extends Device> {
+public interface Rack<D extends Device> extends Unique<RackPrimaryKey> {
 
     /**
      *

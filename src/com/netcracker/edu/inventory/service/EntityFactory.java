@@ -1,8 +1,14 @@
 package com.netcracker.edu.inventory.service;
 
 import com.netcracker.edu.inventory.model.NetworkElement;
+import com.netcracker.edu.inventory.model.Unique;
+import com.netcracker.edu.inventory.model.connection.ConnectionPrimaryKey;
 import com.netcracker.edu.inventory.model.device.Device;
+import com.netcracker.edu.inventory.model.device.DevicePrimaryKey;
 import com.netcracker.edu.inventory.model.rack.Rack;
+import com.netcracker.edu.inventory.model.rack.RackPrimaryKey;
+import com.netcracker.edu.location.Location;
+import com.netcracker.edu.location.Trunk;
 
 import java.beans.PropertyChangeListener;
 
@@ -40,6 +46,44 @@ public interface EntityFactory {
      * @throws IllegalArgumentException - if instance of this class can not be created
      */
     <T extends Device> Rack<T> createEmptyRackImpl(String name, int size, Class<T> limitation) throws IllegalArgumentException;
+
+    /**
+     * Create instance of DevicePrimaryKey
+     *
+     * @param inventoryNumber - value of device key-property
+     * @return instance of DevicePrimaryKey
+     * @throws IllegalArgumentException - if inventoryNumber argument is invalid (<= 0)
+     */
+    DevicePrimaryKey createDevicePrimaryKey(int inventoryNumber) throws IllegalArgumentException;
+
+    /**
+     * Create instance of ConnectionPrimaryKey
+     *
+     * @param trunk - value of connection key-property
+     * @param serialNumber - value of connection key-property
+     * @return instance of ConnectionPrimaryKey
+     * @throws IllegalArgumentException - if trunk argument is invalid (= null) or serialNumber argument is invalid (<= 0)
+     */
+    ConnectionPrimaryKey createConnectionPrimaryKey(Trunk trunk, int serialNumber) throws IllegalArgumentException;
+
+    /**
+     * Create instance of RackPrimaryKey
+     *
+     * @param location - value of connection key-property
+     * @return instance of RackPrimaryKey
+     * @throws IllegalArgumentException - if location argument is invalid (= null)
+     */
+    RackPrimaryKey createRackPrimaryKey(Location location) throws IllegalArgumentException;
+
+    /**
+     * Create lazy instance of Device or Connection by primary key
+     *
+     * @param primaryKey - primary key object for lazy instance
+     * @param <K> - type of primary key
+     * @param <T> - type of result instance
+     * @return lazy instance of Device or Connection
+     */
+    <K extends Unique.PrimaryKey, T extends Unique<K>> T createLazyInstance(K primaryKey);
 
     /**
      * Get original network element wrapped on immutable wrapper.

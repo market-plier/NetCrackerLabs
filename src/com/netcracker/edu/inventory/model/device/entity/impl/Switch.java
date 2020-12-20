@@ -47,12 +47,7 @@ public class Switch extends Router implements com.netcracker.edu.inventory.model
 
     public void setPortConnection(Connection connection, int portNumber){
         try {
-
-            if (allPortConnections.get(portNumber)==null){
-                allPortConnections = new ArrayList<>(allPortConnections);
                 allPortConnections.set(portNumber, connection);
-            }
-
         }
         catch (IndexOutOfBoundsException exception){
             logger.log(Level.SEVERE,exception.getMessage(),exception);
@@ -74,7 +69,7 @@ public class Switch extends Router implements com.netcracker.edu.inventory.model
         try{
             super.fillAllFields(fields);
             setNumberOfPorts((Integer)fields.remove().getValue());
-            setPortsType(ConnectorType.valueOf((String)fields.remove().getValue()));
+            setPortsType(ConnectorType.valueOf((fields.peek().getValue() == null || (fields.peek().getValue()).equals("null")) ? "need_init" : (String)fields.remove().getValue()));
             setAllPortConnections(Arrays.asList((Connection[])fields.remove().getValue()));
         }
         catch (NoSuchElementException exception){

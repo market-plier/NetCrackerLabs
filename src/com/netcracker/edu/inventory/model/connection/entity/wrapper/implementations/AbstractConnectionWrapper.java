@@ -2,6 +2,7 @@ package com.netcracker.edu.inventory.model.connection.entity.wrapper.implementat
 
 import com.netcracker.edu.inventory.model.AbstractNetworkElementWrapper;
 import com.netcracker.edu.inventory.model.connection.Connection;
+import com.netcracker.edu.inventory.model.connection.ConnectionPrimaryKey;
 import com.netcracker.edu.inventory.model.connection.ConnectorType;
 import com.netcracker.edu.inventory.model.connection.OneToOneConnection;
 import com.netcracker.edu.inventory.model.connection.entity.*;
@@ -11,7 +12,7 @@ import com.netcracker.edu.location.Trunk;
 import java.util.List;
 import java.util.Set;
 
-public class AbstractConnectionWrapper<A extends Device,B extends Device> extends AbstractNetworkElementWrapper<Connection> implements AllConnections<A,B> {
+public class AbstractConnectionWrapper<A extends Device,B extends Device> extends AbstractNetworkElementWrapper<Connection<A,B>, ConnectionPrimaryKey> implements AllConnections<A,B> {
 
     protected Connection<A,B> connection;
     protected OpticFiber<A,B> opticFiber;
@@ -223,5 +224,15 @@ else
     //thincoaxial
     public int getMaxSize() {
         return thinCoaxial.getMaxSize();
+    }
+
+    @Override
+    public boolean isLazy() {
+        return false;
+    }
+
+    @Override
+    public ConnectionPrimaryKey getPrimaryKey() {
+        return null;
     }
 }

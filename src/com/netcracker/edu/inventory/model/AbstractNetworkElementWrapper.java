@@ -2,11 +2,11 @@ package com.netcracker.edu.inventory.model;
 
 import java.util.Queue;
 
-public class AbstractNetworkElementWrapper<T extends NetworkElement> {
+public class AbstractNetworkElementWrapper<T extends NetworkElement,K extends Unique.PrimaryKey> {
 
-    protected NetworkElement<T> networkElement;
+    protected NetworkElement<T,K> networkElement;
 
-    public AbstractNetworkElementWrapper(NetworkElement<T> networkElement) {
+    public AbstractNetworkElementWrapper(NetworkElement<T,K> networkElement) {
         this.networkElement = networkElement;
     }
 

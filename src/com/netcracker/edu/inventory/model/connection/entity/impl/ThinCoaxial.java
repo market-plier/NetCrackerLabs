@@ -6,28 +6,26 @@ import com.netcracker.edu.inventory.model.device.Device;
 import com.netcracker.edu.location.Trunk;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ThinCoaxial<T extends Device> implements com.netcracker.edu.inventory.model.connection.entity.ThinCoaxial<T> {
+public class ThinCoaxial<T extends Device> extends AbstractConnection<T,T> implements com.netcracker.edu.inventory.model.connection.entity.ThinCoaxial<T> {
 
     private ConnectorType connectorType;
     private Set<T> allDevices;
     private int maxSize;
-    private Trunk trunk;
-    private String status=PLANED;
-    private int serialNumber;
     protected Logger logger = Logger.getLogger(ThinCoaxial.class.getName());
 
     public ThinCoaxial() {
         setConnectorType(ConnectorType.TConnector);
-        allDevices=new HashSet<>();
+        allDevices=new ConcurrentSkipListSet<>();
     }
 
     public ThinCoaxial(int maxSize){
         this();
         this.maxSize = maxSize;
-        allDevices=new HashSet<>(maxSize);
+        allDevices=new ConcurrentSkipListSet<>();
     }
     private void setConnectorType(ConnectorType connectorType){
         this.connectorType = connectorType;
@@ -38,12 +36,12 @@ public class ThinCoaxial<T extends Device> implements com.netcracker.edu.invento
     }
 
     @Override
-    public boolean addDevice(T device) {
+    public  boolean addDevice(T device) {
         return allDevices.add(device);
     }
 
     @Override
-    public boolean removeDevice(T device) {
+    public  boolean removeDevice(T device) {
         return allDevices.remove(device);
     }
 
@@ -73,44 +71,6 @@ public class ThinCoaxial<T extends Device> implements com.netcracker.edu.invento
 
     private void setMaxSize(int maxSize) {
         this.maxSize = maxSize;
-    }
-
-    @Override
-    public Trunk getTrunk() {
-        return trunk;
-    }
-
-    @Override
-    public void setTrunk(Trunk trunk) {
-    this.trunk = trunk;
-    }
-
-    @Override
-    public int getSerialNumber() {
-        return serialNumber;
-    }
-
-    @Override
-    public void setSerialNumber(int serialNumber) {
-            if (this.serialNumber == 0 && serialNumber > 0) {
-            this.serialNumber = serialNumber;
-        } else if (serialNumber < 0) {
-            IllegalArgumentException ex = new IllegalArgumentException("serialNumber can not be negative");
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
-            throw ex;
-        } else if (this.serialNumber != 0) {
-            logger.log(Level.WARNING, "serialNumber number can not be reset");
-        }
-    }
-
-    @Override
-    public String getStatus() {
-        return status;
-    }
-
-    @Override
-    public void setStatus(String status) {
-    this.status = status;
     }
 
     @Override

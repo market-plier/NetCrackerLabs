@@ -1,6 +1,7 @@
 package com.netcracker.edu.inventory.model.connection.entity.wrapper;
 
 import com.netcracker.edu.inventory.model.connection.Connection;
+import com.netcracker.edu.inventory.model.connection.ConnectionPrimaryKey;
 import com.netcracker.edu.inventory.model.connection.entity.wrapper.implementations.AbstractConnectionWrapper;
 import com.netcracker.edu.inventory.model.device.Device;
 import com.netcracker.edu.location.Trunk;
@@ -61,5 +62,15 @@ public class ConnectionWrapper<A extends Device,B extends Device> implements Con
     @Override
     public int compareTo(Connection o) {
         return wrapper.compareTo(o);
+    }
+
+    @Override
+    public boolean isLazy() {
+        return false;
+    }
+
+    @Override
+    public ConnectionPrimaryKey getPrimaryKey() {
+        return null;
     }
 }

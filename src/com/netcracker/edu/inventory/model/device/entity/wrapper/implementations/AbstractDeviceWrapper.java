@@ -4,12 +4,13 @@ import com.netcracker.edu.inventory.model.AbstractNetworkElementWrapper;
 import com.netcracker.edu.inventory.model.connection.Connection;
 import com.netcracker.edu.inventory.model.connection.ConnectorType;
 import com.netcracker.edu.inventory.model.device.Device;
+import com.netcracker.edu.inventory.model.device.DevicePrimaryKey;
 import com.netcracker.edu.inventory.model.device.entity.*;
 
 import java.util.Date;
 import java.util.List;
 
-public class AbstractDeviceWrapper extends AbstractNetworkElementWrapper<Device> implements AllDevices {
+public class AbstractDeviceWrapper extends AbstractNetworkElementWrapper<Device,DevicePrimaryKey> implements AllDevices {
 
     Device device;
     Battery battery;
@@ -174,4 +175,13 @@ public class AbstractDeviceWrapper extends AbstractNetworkElementWrapper<Device>
         device.setProductionDate(productionDate);
     }
 
+    @Override
+    public boolean isLazy() {
+        return false;
+    }
+
+    @Override
+    public DevicePrimaryKey getPrimaryKey() {
+        return null;
+    }
 }
