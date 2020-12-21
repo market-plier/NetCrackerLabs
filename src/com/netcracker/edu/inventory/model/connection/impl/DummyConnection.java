@@ -1,70 +1,51 @@
-package com.netcracker.edu.inventory.model.device.entity.impl;
+package com.netcracker.edu.inventory.model.connection.impl;
 
 import com.netcracker.edu.inventory.model.connection.Connection;
+import com.netcracker.edu.inventory.model.connection.ConnectionPrimaryKey;
 import com.netcracker.edu.inventory.model.connection.ConnectorType;
+import com.netcracker.edu.inventory.model.connection.entity.AllConnections;
 import com.netcracker.edu.inventory.model.device.Device;
-import com.netcracker.edu.inventory.model.device.DevicePrimaryKey;
-import com.netcracker.edu.inventory.model.device.entity.AllDevices;
+import com.netcracker.edu.location.Trunk;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Queue;
 
-public class DummyDevice implements AllDevices {
-    private final DevicePrimaryKey primaryKey;
+public class DummyConnection<A extends Device,B extends Device> implements AllConnections<A,B> {
 
-    public DummyDevice(DevicePrimaryKey primaryKey) {
+    private final ConnectionPrimaryKey primaryKey;
+
+    public DummyConnection(ConnectionPrimaryKey primaryKey) {
         this.primaryKey = primaryKey;
     }
 
     @Override
-    public int getIn() {
+    public Trunk getTrunk() {
         throw new UnsupportedOperationException("Connection is Dummy");
     }
 
     @Override
-    public void setIn(int in) {
+    public void setTrunk(Trunk trunk) {
         throw new UnsupportedOperationException("Connection is Dummy");
     }
 
     @Override
-    public String getType() {
+    public int getSerialNumber() {
         throw new UnsupportedOperationException("Connection is Dummy");
     }
 
     @Override
-    public void setType(String type) {
+    public void setSerialNumber(int serialNumber) {
         throw new UnsupportedOperationException("Connection is Dummy");
     }
 
     @Override
-    public String getManufacturer() {
+    public String getStatus() {
         throw new UnsupportedOperationException("Connection is Dummy");
     }
 
     @Override
-    public void setManufacturer(String manufacturer) {
-        throw new UnsupportedOperationException("Connection is Dummy");
-    }
-
-    @Override
-    public String getModel() {
-        throw new UnsupportedOperationException("Connection is Dummy");
-    }
-
-    @Override
-    public void setModel(String model) {
-        throw new UnsupportedOperationException("Connection is Dummy");
-    }
-
-    @Override
-    public Date getProductionDate() {
-        throw new UnsupportedOperationException("Connection is Dummy");
-    }
-
-    @Override
-    public void setProductionDate(Date productionDate) {
+    public void setStatus(String status) {
         throw new UnsupportedOperationException("Connection is Dummy");
     }
 
@@ -84,7 +65,7 @@ public class DummyDevice implements AllDevices {
     }
 
     @Override
-    public DevicePrimaryKey getPrimaryKey() {
+    public ConnectionPrimaryKey getPrimaryKey() {
         return primaryKey;
     }
 
@@ -92,13 +73,8 @@ public class DummyDevice implements AllDevices {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DummyDevice that = (DummyDevice) o;
+        DummyConnection<?, ?> that = (DummyConnection<?, ?>) o;
         return Objects.equals(primaryKey, that.primaryKey);
-    }
-
-    @Override
-    public int compareTo(Device o) {
-        return primaryKey.compareTo(o.getPrimaryKey());
     }
 
     @Override
@@ -107,102 +83,107 @@ public class DummyDevice implements AllDevices {
     }
 
     @Override
-    public int getChargeVolume() {
+    public int compareTo(Connection<A,B> o) {
+        return primaryKey.compareTo(o.getPrimaryKey());
+    }
+
+    @Override
+    public List<B> getBPoints() {
+        return null;
+    }
+
+    @Override
+    public void setBPoints(List<B> devices) {
         throw new UnsupportedOperationException("Connection is Dummy");
     }
 
     @Override
-    public void setChargeVolume(int chargeVolume) {
-        throw new UnsupportedOperationException("Connection is Dummy");
-
-    }
-
-    @Override
-    public int getNumberOfPorts() {
+    public int getBCapacity() {
         throw new UnsupportedOperationException("Connection is Dummy");
     }
 
     @Override
-    public void setNumberOfPorts(int numberOfPorts) {
-        throw new UnsupportedOperationException("Connection is Dummy");
-
-    }
-
-    @Override
-    public ConnectorType getPortsType() {
+    public B getBPoint(int deviceNumber) {
         throw new UnsupportedOperationException("Connection is Dummy");
     }
 
     @Override
-    public Connection getPortConnection(int portNumber) {
+    public void setBPoint(B device, int deviceNumber) {
         throw new UnsupportedOperationException("Connection is Dummy");
     }
 
     @Override
-    public void setPortConnection(Connection connection, int portNumber) {
-        throw new UnsupportedOperationException("Connection is Dummy");
-
-    }
-
-    @Override
-    public List<Connection> getAllPortConnections() {
+    public Mode getMode() {
         throw new UnsupportedOperationException("Connection is Dummy");
     }
 
     @Override
-    public String getTechnologyVersion() {
+    public Type getType() {
         throw new UnsupportedOperationException("Connection is Dummy");
     }
 
     @Override
-    public String getSecurityProtocol() {
-        throw new UnsupportedOperationException("Connection is Dummy");
-
-    }
-
-    @Override
-    public void setSecurityProtocol(String securityProtocol) {
-        throw new UnsupportedOperationException("Connection is Dummy");
-
-    }
-
-    @Override
-    public Connection getWirelessConnection() {
-        throw new UnsupportedOperationException("Connection is Dummy");
-
-    }
-
-    @Override
-    public void setWirelessConnection(Connection wirelessConnection) {
-        throw new UnsupportedOperationException("Connection is Dummy");
-
-    }
-
-    @Override
-    public ConnectorType getWirePortType() {
-        throw new UnsupportedOperationException("Connection is Dummy");
-
-    }
-
-    @Override
-    public Connection getWireConnection() {
+    public int getLength() {
         throw new UnsupportedOperationException("Connection is Dummy");
     }
 
     @Override
-    public void setWireConnection(Connection wireConnection) {
-        throw new UnsupportedOperationException("Connection is Dummy");
-
-    }
-
-    @Override
-    public int getDataRate() {
+    public void setLength(int length) {
         throw new UnsupportedOperationException("Connection is Dummy");
     }
 
     @Override
-    public void setDataRate(int dataRate) {
+    public String getTechnology() {
         throw new UnsupportedOperationException("Connection is Dummy");
+    }
 
+    @Override
+    public String getProtocol() {
+        throw new UnsupportedOperationException("Connection is Dummy");
+    }
+
+    @Override
+    public void setProtocol(String protocol) {
+        throw new UnsupportedOperationException("Connection is Dummy");
+    }
+
+    @Override
+    public int getVersion() {
+        throw new UnsupportedOperationException("Connection is Dummy");
+    }
+
+    @Override
+    public void setVersion(int version) {
+        throw new UnsupportedOperationException("Connection is Dummy");
+    }
+
+    @Override
+    public ConnectorType getAPointConnectorType() {
+        throw new UnsupportedOperationException("Connection is Dummy");
+    }
+
+    @Override
+    public ConnectorType getBPointConnectorType() {
+        throw new UnsupportedOperationException("Connection is Dummy");
+    }
+
+    @Override
+    public A getAPoint() {
+        throw new UnsupportedOperationException("Connection is Dummy");
+    }
+
+    @Override
+    public void setAPoint(A device) {
+        throw new UnsupportedOperationException("Connection is Dummy");
+    }
+
+    @Override
+    public B getBPoint() {
+        throw new UnsupportedOperationException("Connection is Dummy");
+    }
+
+    @Override
+    public void setBPoint(B device) {
+        throw new UnsupportedOperationException("Connection is Dummy");
     }
 }

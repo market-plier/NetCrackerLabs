@@ -28,7 +28,7 @@ public class DevicePK implements DevicePrimaryKey {
 
     @Override
     public int hashCode() {
-        return Objects.hash(in);
+        return in;
     }
 
     @Override
